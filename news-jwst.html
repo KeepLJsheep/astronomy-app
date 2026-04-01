@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#040b1a">  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="星际探索">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231e3a8a;stop-opacity:1' /><stop offset='100%' style='stop-color:%237c3aed;stop-opacity:1' /></linearGradient></defs><rect width='192' height='192' fill='url(%23grad)'/><circle cx='96' cy='96' r='60' fill='none' stroke='%23fbbf24' stroke-width='3'/><circle cx='96' cy='96' r='8' fill='%23fbbf24'/></svg>">
+  <title>韦伯望远镜捕获最遥远星系 · 资讯 · 星际探索</title>
+  <link rel="stylesheet" href="common.css">
+</head>
+<body>
+<div class="bg-glow-1"></div><div class="bg-glow-2"></div>
+<canvas id="starCanvas"></canvas>
+<div class="progress-bar" id="progressBar"></div>
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo"><span class="nav-logo-icon">🔭</span><span>星际探索</span></a>
+  <a href="index.html#news" class="nav-back">← <span>返回首页</span></a>
+</nav>
+
+<div class="detail-hero">
+  <div class="detail-hero-icon">🔭</div>
+  <span class="detail-badge">前沿资讯 · 詹姆斯·韦伯望远镜</span>
+  <h1>韦伯望远镜捕获<br>迄今最遥远星系图像</h1>
+  <p class="detail-hero-sub">JWST拍摄到形成于大爆炸后仅3.2亿年的星系，为早期宇宙研究提供了宝贵数据</p>
+</div>
+
+<div class="content-wrap">
+  <div class="data-grid reveal">
+    <div class="data-item"><div class="data-num">135亿</div><div class="data-label">星系距地距离（光年）</div></div>
+    <div class="data-item"><div class="data-num">3.2亿</div><div class="data-label">大爆炸后经过时间（年）</div></div>
+    <div class="data-item"><div class="data-num">z≈13</div><div class="data-label">红移值（距离指标）</div></div>
+    <div class="data-item"><div class="data-num">6.5m</div><div class="data-label">韦伯望远镜主镜直径</div></div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">重大发现</div>
+  <h2 class="block-title reveal">比哈勃看得更远更清晰</h2>
+  <p class="lead-text reveal">詹姆斯·韦伯太空望远镜（JWST）凭借其红外探测能力，成功捕获了目前人类观测到的最遥远星系之一，其光线在宇宙中旅行了超过135亿年才到达我们的望远镜。这意味着我们正在"回望"宇宙大爆炸后仅约3亿年的景象。</p>
+  <p class="body-text reveal">这些早期星系的发现让天文学家大感意外——它们的质量和亮度远超理论模型的预测，暗示我们对宇宙早期星系形成的理解可能需要重大修正。</p>
+
+  <div class="visual-block reveal" style="background: radial-gradient(ellipse at 30% 60%, #001166 0%, #000033 40%, #000011 100%);">
+    <span>🔭</span>
+    <div class="visual-label">JWST深场图像示意 — 每个光点都是一个星系</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">韦伯望远镜</div>
+  <h2 class="block-title reveal">人类史上最强大的太空望远镜</h2>
+  <div class="info-card reveal">
+    <div class="info-card-title">🪞 超大主镜</div>
+    <div class="info-card-text">JWST主镜由18块六边形铍镜片拼成，总直径6.5米，集光面积是哈勃望远镜的约6.3倍。镜片表面镀有一层薄薄的金，最大化红外反射效率。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">❄️ 超低工作温度</div>
+    <div class="info-card-text">为探测极其微弱的红外辐射，JWST需要在约-233℃（40K）的极低温度下工作。它配备了网球场大小的五层遮阳罩，部署在地球背离太阳的L2拉格朗日点，远离地球热辐射的干扰。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">🌌 观测红外宇宙</div>
+    <div class="info-card-text">遥远星系的光因宇宙膨胀而红移到红外波段，哈勃望远镜主要工作在可见光和近紫外，而JWST专为红外而生，能看到哈勃无法看到的早期宇宙。</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">科学意义</div>
+  <h2 class="block-title reveal">重写宇宙早期历史</h2>
+  <p class="body-text reveal">此前天文学家认为，早期宇宙中的星系应该体积小、质量低、结构松散。但JWST的观测显示，大爆炸后仅数亿年就存在结构复杂、质量可观的星系，这与标准宇宙学模型的预测不符。</p>
+  <div class="highlight-box reveal">
+    <p>🤔 一些科学家提出，这些意外出现的早期大质量星系，可能意味着暗物质的聚集比理论预测的更快，或者早期宇宙的恒星形成效率远超现有模型。这将推动宇宙学理论的修正与完善。</p>
+  </div>
+  <p class="body-text reveal">除了寻找遥远星系，JWST还在系外行星大气分析、恒星形成区观测、太阳系天体研究等多个领域取得突破性进展，正在全方位刷新人类对宇宙的认知。</p>
+
+  <hr class="divider">
+  <div class="section-tag reveal">相关主题</div>
+  <h2 class="block-title reveal">继续探索</h2>
+  <div class="related-grid">
+    <a href="cosmology.html" class="related-card reveal"><div class="related-icon">🌌</div><div class="related-title">宇宙学与大爆炸</div><div class="related-desc">早期宇宙的演化历史</div></a>
+    <a href="dark-matter.html" class="related-card reveal"><div class="related-icon">🔮</div><div class="related-title">暗物质与暗能量</div><div class="related-desc">早期星系形成的谜题</div></a>
+    <a href="news-gravitational.html" class="related-card reveal"><div class="related-icon">🌊</div><div class="related-title">引力波新发现</div><div class="related-desc">三体系统并合事件</div></a>
+    <a href="news-exoplanet.html" class="related-card reveal"><div class="related-icon">🪐</div><div class="related-title">系外行星新发现</div><div class="related-desc">宜居带水蒸气信号</div></a>
+  </div>
+</div>
+
+<footer class="page-footer"><p>© 2026 星际探索 · 天体物理科普网站</p></footer>
+<script src="common.js"></script>
+</body>
+</html>

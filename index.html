@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#040b1a">
+  <meta name="description" content="探索宇宙的奥秘 — 天体物理学科普网站">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="星际探索">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231e3a8a;stop-opacity:1' /><stop offset='100%' style='stop-color:%237c3aed;stop-opacity:1' /></linearGradient></defs><rect width='192' height='192' fill='url(%23grad)'/><circle cx='96' cy='96' r='60' fill='none' stroke='%23fbbf24' stroke-width='3'/><circle cx='96' cy='96' r='8' fill='%23fbbf24'/></svg>">
+  <title>星际探索 · 天体物理</title>
+  <style>
+    /* ====================== 重置 & 基础 ====================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+      background: #040b1a;
+      color: #e8f0ff;
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #040b1a; }
+    ::-webkit-scrollbar-thumb { background: #1a4a8a; border-radius: 3px; }
+
+    /* ====================== 星空画布 ====================== */
+    #starCanvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ====================== 导航栏 ====================== */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      height: 64px;
+      background: rgba(4, 11, 26, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(100, 160, 255, 0.15);
+      transition: background 0.3s;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #fff;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .nav-logo-icon { font-size: 1.6rem; }
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: rgba(200,220,255,0.8);
+      font-size: 0.92rem;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0; right: 0;
+      height: 2px;
+      background: #5599ff;
+      transform: scaleX(0);
+      transition: transform 0.2s;
+      border-radius: 1px;
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    /* 汉堡菜单按钮 */
+    .menu-btn {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 1100;
+    }
+    .menu-btn span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #e8f0ff;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .menu-btn.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .menu-btn.active span:nth-child(2) { opacity: 0; }
+    .menu-btn.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* 移动端抽屉菜单 */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 64px; left: 0; right: 0;
+      background: rgba(4, 11, 26, 0.97);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(100, 160, 255, 0.15);
+      z-index: 999;
+      padding: 20px 0;
+      transform: translateY(-100%);
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s;
+    }
+    .mobile-menu.open {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .mobile-menu a {
+      display: block;
+      padding: 14px 32px;
+      color: rgba(200,220,255,0.85);
+      text-decoration: none;
+      font-size: 1rem;
+      border-bottom: 1px solid rgba(100,160,255,0.08);
+      transition: background 0.2s;
+    }
+    .mobile-menu a:hover { background: rgba(100,160,255,0.08); color: #fff; }
+
+    /* ====================== Hero 区块 ====================== */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px 60px;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(85, 153, 255, 0.15);
+      border: 1px solid rgba(85, 153, 255, 0.4);
+      color: #88bbff;
+      font-size: 0.78rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 8vw, 5rem);
+      font-weight: 800;
+      line-height: 1.15;
+      background: linear-gradient(135deg, #ffffff 0%, #88ccff 50%, #5577ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 3vw, 1.3rem);
+      color: rgba(180, 210, 255, 0.75);
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn-primary {
+      padding: 14px 36px;
+      background: linear-gradient(135deg, #1a6bff, #5533ff);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(26, 107, 255, 0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(26, 107, 255, 0.5);
+    }
+    .btn-outline {
+      padding: 14px 36px;
+      background: transparent;
+      color: #88bbff;
+      border: 1px solid rgba(136, 187, 255, 0.5);
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-outline:hover {
+      background: rgba(136, 187, 255, 0.08);
+      border-color: #88bbff;
+      color: #fff;
+    }
+    .scroll-hint {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(136, 187, 255, 0.5);
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      animation: bounce 2s infinite;
+    }
+    .scroll-hint svg { width: 20px; height: 20px; }
+    @keyframes bounce { 0%,100%{ transform:translateX(-50%) translateY(0); } 50%{ transform:translateX(-50%) translateY(8px); } }
+
+    /* ====================== 通用区块样式 ====================== */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 80px 5%;
+    }
+    .section-tag {
+      text-align: center;
+      color: #5599ff;
+      font-size: 0.78rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+    .section-desc {
+      text-align: center;
+      color: rgba(180,210,255,0.65);
+      max-width: 600px;
+      margin: 0 auto 56px;
+      font-size: 0.98rem;
+    }
+
+    /* ====================== 数据统计条 ====================== */
+    .stats-bar {
+      position: relative;
+      z-index: 1;
+      background: rgba(255,255,255,0.02);
+      border-top: 1px solid rgba(100,160,255,0.1);
+      border-bottom: 1px solid rgba(100,160,255,0.1);
+      padding: 36px 5%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .stat-item {
+      text-align: center;
+    }
+    .stat-num {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, #5599ff, #aa77ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label {
+      font-size: 0.82rem;
+      color: rgba(160,200,255,0.6);
+      margin-top: 4px;
+    }
+
+    /* ====================== 知识卡片 ====================== */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(100,160,255,0.12);
+      border-radius: 16px;
+      padding: 28px;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(85,153,255,0.4);
+      box-shadow: 0 12px 40px rgba(85,153,255,0.12);
+    }
+    .card-icon {
+      font-size: 2.4rem;
+      margin-bottom: 16px;
+    }
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ddeeff;
+      margin-bottom: 10px;
+    }
+    .card-text {
+      font-size: 0.88rem;
+      color: rgba(160,200,255,0.7);
+      line-height: 1.75;
+    }
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 16px;
+      color: #5599ff;
+      font-size: 0.84rem;
+      text-decoration: none;
+      font-weight: 600;
+      transition: gap 0.2s;
+    }
+    .card-link:hover { gap: 9px; color: #88bbff; }
+
+    /* ====================== 时间线区块 ====================== */
+    .timeline {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, transparent, #1a4a8a, #5533ff, transparent);
+      transform: translateX(-50%);
+    }
+    .tl-item {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+      margin-bottom: 48px;
+      position: relative;
+    }
+    .tl-item:nth-child(odd) { flex-direction: row-reverse; }
+    .tl-content {
+      flex: 1;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(100,160,255,0.12);
+      border-radius: 14px;
+      padding: 20px 24px;
+    }
+    .tl-item:nth-child(odd) .tl-content { text-align: right; }
+    .tl-dot {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 14px; height: 14px;
+      background: #5533ff;
+      border: 3px solid #040b1a;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #5533ff;
+      flex-shrink: 0;
+    }
+    .tl-year {
+      font-size: 0.78rem;
+      color: #5599ff;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+    .tl-title-text {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #ddeeff;
+      margin-bottom: 6px;
+    }
+    .tl-desc {
+      font-size: 0.85rem;
+      color: rgba(160,200,255,0.65);
+      line-height: 1.6;
+    }
+
+    /* ====================== 天体展示区 ====================== */
+    .objects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .obj-card {
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 1;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .obj-card:hover { transform: scale(1.03); }
+    .obj-bg {
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      position: relative;
+    }
+    .obj-card:nth-child(1) .obj-bg { background: radial-gradient(circle at 60% 40%, #ffb800, #ff4400, #1a0a00); }
+    .obj-card:nth-child(2) .obj-bg { background: radial-gradient(circle at 50%, #0066ff, #001133); }
+    .obj-card:nth-child(3) .obj-bg { background: radial-gradient(circle at 50%, #330044, #000011); }
+    .obj-card:nth-child(4) .obj-bg { background: radial-gradient(circle at 50%, #002244, #000820, #440022); }
+    .obj-card:nth-child(5) .obj-bg { background: radial-gradient(circle at 50%, #ff6600, #ff0000, #220000); }
+    .obj-card:nth-child(6) .obj-bg { background: radial-gradient(circle at 50%, #aaaaff, #4444cc, #001122); }
+    .obj-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+      padding: 20px 16px 16px;
+    }
+    .obj-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .obj-type {
+      font-size: 0.76rem;
+      color: rgba(200,220,255,0.7);
+      margin-top: 2px;
+    }
+
+    /* ====================== 公式区块 ====================== */
+    .formula-section {
+      background: rgba(255,255,255,0.02);
+      border-top: 1px solid rgba(100,160,255,0.08);
+      border-bottom: 1px solid rgba(100,160,255,0.08);
+    }
+    .formula-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .formula-card {
+      background: rgba(0,20,60,0.5);
+      border: 1px solid rgba(85,153,255,0.2);
+      border-radius: 14px;
+      padding: 24px;
+    }
+    .formula-name {
+      font-size: 0.82rem;
+      color: #88aaff;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+    .formula-eq {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      font-family: 'Georgia', serif;
+      text-align: center;
+      padding: 16px;
+      background: rgba(85,153,255,0.07);
+      border-radius: 8px;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+    .formula-desc {
+      font-size: 0.83rem;
+      color: rgba(160,200,255,0.65);
+      line-height: 1.65;
+    }
+
+    /* ====================== 宇宙奇观问答 ====================== */
+    .faq-list { max-width: 800px; margin: 0 auto; }
+    .faq-item {
+      border: 1px solid rgba(100,160,255,0.12);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .faq-q {
+      width: 100%;
+      text-align: left;
+      background: rgba(255,255,255,0.02);
+      border: none;
+      padding: 18px 24px;
+      color: #ddeeff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      transition: background 0.2s;
+    }
+    .faq-q:hover { background: rgba(85,153,255,0.06); }
+    .faq-q svg {
+      flex-shrink: 0;
+      transition: transform 0.3s;
+    }
+    .faq-q.open svg { transform: rotate(180deg); }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s;
+      padding: 0 24px;
+      color: rgba(160,200,255,0.7);
+      font-size: 0.88rem;
+      line-height: 1.75;
+    }
+    .faq-a.open {
+      max-height: 300px;
+      padding: 0 24px 18px;
+    }
+
+    /* ====================== 新闻/资讯 ====================== */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .news-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(100,160,255,0.1);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: transform 0.25s, border-color 0.25s;
+    }
+    .news-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(85,153,255,0.35);
+    }
+    .news-thumb {
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+    .news-card:nth-child(1) .news-thumb { background: radial-gradient(135deg, #001133, #003388); }
+    .news-card:nth-child(2) .news-thumb { background: radial-gradient(135deg, #110022, #442266); }
+    .news-card:nth-child(3) .news-thumb { background: radial-gradient(135deg, #001a00, #004400); }
+    .news-body { padding: 20px; }
+    .news-meta {
+      font-size: 0.76rem;
+      color: #5599ff;
+      margin-bottom: 8px;
+      display: flex;
+      gap: 12px;
+    }
+    .news-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #ddeeff;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    .news-excerpt {
+      font-size: 0.83rem;
+      color: rgba(160,200,255,0.6);
+      line-height: 1.65;
+    }
+
+    /* ====================== 宇宙尺度图 ====================== */
+    .scale-section { padding: 80px 5%; }
+    .scale-bar-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .scale-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .scale-label {
+      width: 130px;
+      flex-shrink: 0;
+      text-align: right;
+      font-size: 0.83rem;
+      color: rgba(160,200,255,0.7);
+    }
+    .scale-track {
+      flex: 1;
+      height: 8px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .scale-fill {
+      height: 100%;
+      border-radius: 4px;
+      animation: fillBar 1.5s ease forwards;
+      transform-origin: left;
+    }
+    @keyframes fillBar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+    .scale-val {
+      width: 100px;
+      flex-shrink: 0;
+      font-size: 0.8rem;
+      color: #88bbff;
+      font-weight: 600;
+    }
+
+    /* ====================== 页脚 ====================== */
+    footer {
+      position: relative;
+      z-index: 1;
+      background: rgba(0,5,15,0.9);
+      border-top: 1px solid rgba(100,160,255,0.1);
+      padding: 48px 5% 32px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: rgba(160,200,255,0.55);
+      line-height: 1.7;
+      margin-top: 12px;
+      max-width: 280px;
+    }
+    .footer-col h4 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #ddeeff;
+      margin-bottom: 16px;
+    }
+    .footer-col ul {
+      list-style: none;
+    }
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+    .footer-col ul li a {
+      text-decoration: none;
+      color: rgba(160,200,255,0.55);
+      font-size: 0.84rem;
+      transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: #88bbff; }
+    .footer-bottom {
+      border-top: 1px solid rgba(100,160,255,0.08);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .footer-bottom p {
+      font-size: 0.78rem;
+      color: rgba(160,200,255,0.4);
+    }
+
+    /* ====================== 浮动粒子 ====================== */
+    .particle {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      animation: floatParticle linear infinite;
+      opacity: 0;
+    }
+    @keyframes floatParticle {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.3; }
+      100% { transform: translateY(-20vh) scale(1); opacity: 0; }
+    }
+
+    /* ====================== 进度条顶部 ====================== */
+    .progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #1a6bff, #aa44ff);
+      z-index: 2000;
+      transition: width 0.1s;
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* ====================== 响应式断点 ====================== */
+    @media (max-width: 768px) {
+      section { padding: 60px 5%; }
+      .nav-links { display: none; }
+      .menu-btn { display: flex; }
+      .mobile-menu { display: block; }
+
+      .stats-bar {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        padding: 28px 5%;
+      }
+
+      .timeline::before { left: 20px; }
+      .tl-item { flex-direction: column !important; padding-left: 48px; }
+      .tl-item:nth-child(odd) .tl-content { text-align: left; }
+      .tl-dot { left: 20px; top: 6px; }
+
+      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+
+      .scale-label { width: 90px; font-size: 0.76rem; }
+      .scale-val { width: 80px; font-size: 0.74rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 2rem; }
+      .hero-btns { flex-direction: column; align-items: center; }
+      .btn-primary, .btn-outline { width: 100%; max-width: 280px; text-align: center; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .objects-grid { grid-template-columns: repeat(2, 1fr); }
+      .formula-grid { grid-template-columns: 1fr; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ====================== 滚动动画 ====================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ====================== 行星旋转装饰 ====================== */
+    .orbit-deco {
+      position: absolute;
+      right: -80px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      border: 1px dashed rgba(85,153,255,0.2);
+      animation: rotate 20s linear infinite;
+      pointer-events: none;
+    }
+    .orbit-deco::before {
+      content: '🪐';
+      position: absolute;
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+    }
+    @keyframes rotate { from { transform: translateY(-50%) rotate(0deg); } to { transform: translateY(-50%) rotate(360deg); } }
+
+    /* ====================== 背景渐变层 ====================== */
+    .bg-glow-1 {
+      position: fixed;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(85,0,255,0.04), transparent 70%);
+      top: -100px; right: -100px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bg-glow-2 {
+      position: fixed;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,100,255,0.04), transparent 70%);
+      bottom: -100px; left: -100px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ====================== 图片占位 neubulae ====================== */
+    .nebula-img {
+      width: 100%;
+      height: 220px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 24px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+    }
+    .nebula-1 { background: radial-gradient(ellipse at 30% 60%, #ff4400 0%, #aa0066 30%, #000033 70%); }
+    .nebula-2 { background: radial-gradient(ellipse at 70% 40%, #0044ff 0%, #004422 40%, #000011 70%); }
+  </style>
+</head>
+<body>
+  <!-- 背景光晕 -->
+  <div class="bg-glow-1"></div>
+  <div class="bg-glow-2"></div>
+
+  <!-- 星空画布 -->
+  <canvas id="starCanvas"></canvas>
+
+  <!-- 阅读进度条 -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- ====================== 导航栏 ====================== -->
+  <nav class="navbar" id="navbar">
+    <a href="#" class="nav-logo">
+      <span class="nav-logo-icon">🔭</span>
+      <span>星际探索</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#explore">探索分类</a></li>
+      <li><a href="#objects">天体图鉴</a></li>
+      <li><a href="#history">发现历程</a></li>
+      <li><a href="#formulas">核心公式</a></li>
+      <li><a href="#faq">宇宙问答</a></li>
+      <li><a href="#news">最新资讯</a></li>
+    </ul>
+    <button class="menu-btn" id="menuBtn" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- 移动端菜单 -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#explore" onclick="closeMobileMenu()">探索分类</a>
+    <a href="#objects" onclick="closeMobileMenu()">天体图鉴</a>
+    <a href="#history" onclick="closeMobileMenu()">发现历程</a>
+    <a href="#formulas" onclick="closeMobileMenu()">核心公式</a>
+    <a href="#faq" onclick="closeMobileMenu()">宇宙问答</a>
+    <a href="#news" onclick="closeMobileMenu()">最新资讯</a>
+  </div>
+
+  <!-- ====================== Hero ====================== -->
+  <section class="hero" id="home">
+    <span class="hero-badge">✦ 探索无垠宇宙 ✦</span>
+    <h1>宇宙的奥秘<br>等你揭开</h1>
+    <p class="hero-sub">从量子泡沫到超星系团，天体物理学正在重写人类对宇宙的认知。加入我们，踏上这场跨越光年的探索之旅。</p>
+    <div class="hero-btns">
+      <a href="#explore" class="btn-primary">开始探索 →</a>
+      <a href="#history" class="btn-outline">发现历程</a>
+    </div>
+    <div class="scroll-hint">
+      <span>向下滑动</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ====================== 数据统计 ====================== -->
+  <div class="stats-bar reveal">
+    <div class="stat-item">
+      <div class="stat-num" data-target="930">0</div>
+      <div class="stat-label">亿光年 · 可观测宇宙直径</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="2000">0</div>
+      <div class="stat-label">亿颗 · 银河系恒星估计</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="138">0</div>
+      <div class="stat-label">亿年 · 宇宙年龄</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="5000">0</div>
+      <div class="stat-num-suffix">+</div>
+      <div class="stat-label">颗 · 已确认系外行星</div>
+    </div>
+  </div>
+
+  <!-- ====================== 探索分类 ====================== -->
+  <section id="explore">
+    <div class="section-tag">知识体系</div>
+    <h2 class="section-title">天体物理核心领域</h2>
+    <p class="section-desc">涵盖从微观粒子到宏观宇宙结构，带你领略天体物理学的壮阔图景</p>
+    <div class="cards-grid">
+      <div class="card reveal">
+        <div class="card-icon">⭐</div>
+        <div class="card-title">恒星物理学</div>
+        <div class="card-text">研究恒星的诞生、演化与死亡。从氢核聚变到超新星爆发，恒星是宇宙中最重要的元素锻造厂。太阳是距我们最近的恒星，为地球提供维持生命的能量。</div>
+        <a href="stars.html" class="card-link">深入探索 →</a>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🌀</div>
+        <div class="card-title">黑洞与奇点</div>
+        <div class="card-text">质量极大而体积极小的天体，引力强大到连光也无法逃脱。黑洞的事件视界、霍金辐射和信息悖论至今仍是物理学前沿的谜题。</div>
+        <a href="blackhole.html" class="card-link">深入探索 →</a>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🌌</div>
+        <div class="card-title">宇宙学与大爆炸</div>
+        <div class="card-text">大爆炸理论认为宇宙起源于约138亿年前的一个极高温、极高密度的奇点。宇宙微波背景辐射是这一理论最有力的证据之一。</div>
+        <a href="cosmology.html" class="card-link">深入探索 →</a>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🔮</div>
+        <div class="card-title">暗物质与暗能量</div>
+        <div class="card-text">普通物质只占宇宙总质量-能量的约5%，暗物质约占27%，暗能量约占68%。这两种"暗"成分的本质是现代物理学最大的谜团之一。</div>
+        <a href="dark-matter.html" class="card-link">深入探索 →</a>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🌊</div>
+        <div class="card-title">引力波天文学</div>
+        <div class="card-text">2015年LIGO首次直接探测到引力波，开启了多信使天文学时代。引力波是时空的涟漪，由双黑洞、双中子星等大质量天体合并产生。</div>
+        <a href="gravitational-waves.html" class="card-link">深入探索 →</a>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🪐</div>
+        <div class="card-title">行星科学</div>
+        <div class="card-text">研究太阳系及系外行星的形成、演化和宜居性。开普勒太空望远镜和詹姆斯·韦伯太空望远镜持续扩大已知系外行星的目录。</div>
+        <a href="planets.html" class="card-link">深入探索 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== 天体图鉴 ====================== -->
+  <section id="objects" style="background:rgba(255,255,255,0.01); border-top:1px solid rgba(100,160,255,0.08);">
+    <div class="section-tag">天体图鉴</div>
+    <h2 class="section-title">宇宙中的壮丽天体</h2>
+    <p class="section-desc">从炽热的恒星到寒冷的星际尘埃云，宇宙中存在着无数令人叹为观止的天体</p>
+    <div class="objects-grid">
+      <a href="sun.html" class="obj-card reveal" style="text-decoration:none;">
+        <div class="obj-bg">☀️</div>
+        <div class="obj-overlay">
+          <div class="obj-name">太阳</div>
+          <div class="obj-type">G型主序星 · 距地约1.5亿千米</div>
+        </div>
+      </a>
+      <a href="earth.html" class="obj-card reveal" style="text-decoration:none;">
+        <div class="obj-bg">🌍</div>
+        <div class="obj-overlay">
+          <div class="obj-name">地球</div>
+          <div class="obj-type">类地行星 · 唯一已知生命星球</div>
+        </div>
+      </a>
+      <a href="blackhole.html" class="obj-card reveal" style="text-decoration:none;">
+        <div class="obj-bg">🕳️</div>
+        <div class="obj-overlay">
+          <div class="obj-name">超大质量黑洞</div>
+          <div class="obj-type">M87* · 质量约65亿太阳质量</div>
+        </div>
+      </a>
+      <a href="nebula.html" class="obj-card reveal" style="text-decoration:none;">
+        <div class="obj-bg">🌠</div>
+        <div class="obj-overlay">
+          <div class="obj-name">星云</div>
+          <div class="obj-type">猎户座星云 · 恒星诞生的温床</div>
+        </div>
+      </a>
+      <a href="supernova.html" class="obj-card reveal" style="text-decoration:none;">
+        <div class="obj-bg">💥</div>
+        <div class="obj-overlay">
+          <div class="obj-name">超新星遗迹</div>
+          <div class="obj-type">蟹状星云 · 1054年超新星爆发遗迹</div>
+        </div>
+      </a>
+      <a href="neutronstar.html" class="obj-card reveal" style="text-decoration:none;">
+        <div class="obj-bg">✨</div>
+        <div class="obj-overlay">
+          <div class="obj-name">中子星</div>
+          <div class="obj-type">脉冲星 · 每秒自转数百次</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ====================== 发现历程时间线 ====================== -->
+  <section id="history">
+    <div class="section-tag">历史里程碑</div>
+    <h2 class="section-title">人类探索宇宙的里程碑</h2>
+    <p class="section-desc">从古代仰望星空到现代太空探测，人类对宇宙的认知不断深化</p>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-content">
+          <div class="tl-year">1687</div>
+          <div class="tl-title-text">牛顿《自然哲学的数学原理》</div>
+          <div class="tl-desc">提出万有引力定律，为天体力学奠定基础，统一了天体运动与地面物理学。</div>
+        </div>
+        <div class="tl-dot"></div>
+        <div style="flex:1"></div>
+      </div>
+      <div class="tl-item reveal">
+        <div style="flex:1"></div>
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-year">1905</div>
+          <div class="tl-title-text">爱因斯坦狭义相对论</div>
+          <div class="tl-desc">质能方程 E=mc² 揭示了质量与能量的等价关系，为理解恒星核聚变提供了理论基础。</div>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-content">
+          <div class="tl-year">1929</div>
+          <div class="tl-title-text">哈勃发现宇宙膨胀</div>
+          <div class="tl-desc">哈勃通过观测河外星系的红移，证实宇宙正在膨胀，为大爆炸理论提供了关键证据。</div>
+        </div>
+        <div class="tl-dot"></div>
+        <div style="flex:1"></div>
+      </div>
+      <div class="tl-item reveal">
+        <div style="flex:1"></div>
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-year">1965</div>
+          <div class="tl-title-text">宇宙微波背景辐射发现</div>
+          <div class="tl-desc">彭齐亚斯和威尔逊偶然发现了宇宙微波背景辐射，成为大爆炸理论的直接证据，获1978年诺贝尔物理学奖。</div>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-content">
+          <div class="tl-year">1998</div>
+          <div class="tl-title-text">宇宙加速膨胀发现</div>
+          <div class="tl-desc">通过观测Ia型超新星，科学家发现宇宙不仅在膨胀，而且在加速膨胀，暗示暗能量的存在，获2011年诺贝尔物理学奖。</div>
+        </div>
+        <div class="tl-dot"></div>
+        <div style="flex:1"></div>
+      </div>
+      <div class="tl-item reveal">
+        <div style="flex:1"></div>
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-year">2015</div>
+          <div class="tl-title-text">首次直接探测引力波</div>
+          <div class="tl-desc">LIGO探测器探测到来自13亿光年外两个黑洞合并产生的引力波，开启引力波天文学新时代，获2017年诺贝尔物理学奖。</div>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-content">
+          <div class="tl-year">2019</div>
+          <div class="tl-title-text">首张黑洞照片发布</div>
+          <div class="tl-desc">事件视界望远镜（EHT）项目公布了人类历史上第一张黑洞照片——M87星系中心超大质量黑洞的图像。</div>
+        </div>
+        <div class="tl-dot"></div>
+        <div style="flex:1"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== 核心公式 ====================== -->
+  <section id="formulas" class="formula-section">
+    <div class="section-tag">理论基础</div>
+    <h2 class="section-title">天体物理核心公式</h2>
+    <p class="section-desc">这些优雅的方程式描述了宇宙运作的深层规律</p>
+    <div class="formula-grid">
+      <div class="formula-card reveal">
+        <div class="formula-name">质能方程</div>
+        <div class="formula-eq">E = mc²</div>
+        <div class="formula-desc">爱因斯坦1905年提出。E为能量，m为质量，c为光速（约3×10⁸ m/s）。揭示质量与能量的深层等价，解释了恒星核聚变释放巨大能量的原理。</div>
+      </div>
+      <div class="formula-card reveal">
+        <div class="formula-name">万有引力定律</div>
+        <div class="formula-eq">F = G·m₁m₂/r²</div>
+        <div class="formula-desc">牛顿1687年提出。任意两个有质量的物体之间存在引力，大小与质量乘积成正比，与距离平方成反比。G为引力常数（6.674×10⁻¹¹）。</div>
+      </div>
+      <div class="formula-card reveal">
+        <div class="formula-name">哈勃定律</div>
+        <div class="formula-eq">v = H₀ · d</div>
+        <div class="formula-desc">星系的退行速度v与距离d成正比，H₀为哈勃常数（约70 km/s/Mpc）。这是宇宙膨胀的定量描述，也是估算宇宙年龄的基础。</div>
+      </div>
+      <div class="formula-card reveal">
+        <div class="formula-name">史瓦西半径</div>
+        <div class="formula-eq">r = 2GM/c²</div>
+        <div class="formula-desc">黑洞的事件视界半径，即光无法逃逸的临界距离。太阳的史瓦西半径约为3千米，地球约为9毫米。</div>
+      </div>
+      <div class="formula-card reveal">
+        <div class="formula-name">斯特藩-玻尔兹曼定律</div>
+        <div class="formula-eq">L = 4πR²σT⁴</div>
+        <div class="formula-desc">描述恒星光度L与表面半径R和温度T的关系。σ为斯特藩常数，这一公式是确定恒星物理参数的重要工具。</div>
+      </div>
+      <div class="formula-card reveal">
+        <div class="formula-name">开普勒第三定律</div>
+        <div class="formula-eq">T² ∝ a³</div>
+        <div class="formula-desc">行星公转周期T的平方与轨道半长轴a的立方成正比。精确形式为 T² = 4π²a³/GM，是计算天体质量和轨道的基础。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== 宇宙尺度 ====================== -->
+  <section class="scale-section">
+    <div class="section-tag">宇宙尺度</div>
+    <h2 class="section-title">宇宙的层次结构</h2>
+    <p class="section-desc">从亚原子粒子到可观测宇宙，宇宙的尺度跨越了难以想象的范围</p>
+    <div class="scale-bar-wrap">
+      <div class="scale-item reveal">
+        <div class="scale-label">质子</div>
+        <div class="scale-track"><div class="scale-fill" style="width:5%;background:linear-gradient(90deg,#ff6644,#ff4422)"></div></div>
+        <div class="scale-val">~10⁻¹⁵ m</div>
+      </div>
+      <div class="scale-item reveal">
+        <div class="scale-label">原子</div>
+        <div class="scale-track"><div class="scale-fill" style="width:12%;background:linear-gradient(90deg,#ff8833,#ff6611)"></div></div>
+        <div class="scale-val">~10⁻¹⁰ m</div>
+      </div>
+      <div class="scale-item reveal">
+        <div class="scale-label">人类</div>
+        <div class="scale-track"><div class="scale-fill" style="width:28%;background:linear-gradient(90deg,#ffbb22,#ff9900)"></div></div>
+        <div class="scale-val">~1.7 m</div>
+      </div>
+      <div class="scale-item reveal">
+        <div class="scale-label">地球</div>
+        <div class="scale-track"><div class="scale-fill" style="width:42%;background:linear-gradient(90deg,#44cc44,#22aa22)"></div></div>
+        <div class="scale-val">~1.3×10⁷ m</div>
+      </div>
+      <div class="scale-item reveal">
+        <div class="scale-label">太阳</div>
+        <div class="scale-track"><div class="scale-fill" style="width:55%;background:linear-gradient(90deg,#22aaff,#0088ee)"></div></div>
+        <div class="scale-val">~1.4×10⁹ m</div>
+      </div>
+      <div class="scale-item reveal">
+        <div class="scale-label">太阳系</div>
+        <div class="scale-track"><div class="scale-fill" style="width:68%;background:linear-gradient(90deg,#5566ff,#3344ee)"></div></div>
+        <div class="scale-val">~9×10¹² m</div>
+      </div>
+      <div class="scale-item reveal">
+        <div class="scale-label">银河系</div>
+        <div class="scale-track"><div class="scale-fill" style="width:80%;background:linear-gradient(90deg,#aa44ff,#8822ee)"></div></div>
+        <div class="scale-val">~9×10²⁰ m</div>
+      </div>
+      <div class="scale-item reveal">
+        <div class="scale-label">可观测宇宙</div>
+        <div class="scale-track"><div class="scale-fill" style="width:100%;background:linear-gradient(90deg,#ff44aa,#dd2299)"></div></div>
+        <div class="scale-val">~8.8×10²⁶ m</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== 宇宙问答 ====================== -->
+  <section id="faq" style="background:rgba(255,255,255,0.01);border-top:1px solid rgba(100,160,255,0.08);">
+    <div class="section-tag">宇宙问答</div>
+    <h2 class="section-title">关于宇宙你想知道的</h2>
+    <p class="section-desc">探索那些让人深思的宇宙终极问题</p>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-q">
+          宇宙在大爆炸之前是什么？
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-a">
+          这个问题目前超出了现有物理学的解释范围。根据广义相对论，时间本身随大爆炸一起诞生，因此"之前"这个概念在物理意义上可能不存在。量子引力理论（如弦理论、圈量子引力）尝试描述大爆炸奇点附近的物理，但尚无定论。也有理论认为宇宙经历了"大反弹"，即收缩后再次膨胀的循环。
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">
+          黑洞里面是什么？
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-a">
+          根据广义相对论，黑洞内部存在一个密度无限大、体积无限小的奇点。然而这种"无限"实际上意味着当前理论在此处失效。量子效应必须在奇点处起作用，但将广义相对论与量子力学统一起来仍是物理学最大挑战之一。一些理论提出黑洞内部可能是"模糊球"或通往另一个宇宙的虫洞。
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">
+          宇宙有边界吗？宇宙之外是什么？
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-a">
+          如果宇宙是平坦的（目前观测支持这一点），它可能是无限大的，没有边界。我们能观测到的"可观测宇宙"受光速和宇宙年龄限制，直径约930亿光年，但这只是整个宇宙的一小部分。宇宙之外没有"之外"——如同问"地球的边缘外面是什么"，空间本身就在宇宙之内。
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">
+          宇宙中有其他智慧生命吗？
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-a">
+          从统计角度看，宇宙中有约2万亿个星系，每个星系有数千亿颗恒星，其中相当比例有行星系统，智慧生命单独存在的概率极低。但费米悖论指出：如果外星文明存在，我们为何没有收到任何信号？可能的解释包括：距离过远、文明出现时间不同步、大过滤器假说、沉默的宇宙等。
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">
+          什么是暗物质？为什么我们看不见它？
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-a">
+          暗物质是一种不与光（电磁辐射）发生作用的物质，因此无法被直接观测，但它通过引力效应影响周围的物质和光线。证据来自星系旋转曲线异常、引力透镜效应和宇宙大尺度结构。目前最主流的候选粒子是WIMP（弱相互作用大质量粒子），但直接探测至今未成功。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== 最新资讯 ====================== -->
+  <section id="news">
+    <div class="section-tag">前沿资讯</div>
+    <h2 class="section-title">天体物理前沿动态</h2>
+    <p class="section-desc">紧跟宇宙探索的最新进展，了解人类认知宇宙的每一步</p>
+    <div class="news-grid">
+      <a href="news-jwst.html" class="news-card reveal" style="text-decoration:none;">
+        <div class="news-thumb">🔭</div>
+        <div class="news-body">
+          <div class="news-meta">
+            <span>詹姆斯·韦伯望远镜</span>
+            <span>· 深空探测</span>
+          </div>
+          <div class="news-title">韦伯望远镜捕获迄今最遥远星系图像</div>
+          <div class="news-excerpt">JWST拍摄到形成于大爆炸后仅3.2亿年的星系，其清晰度远超哈勃望远镜，为早期宇宙研究提供了宝贵数据。</div>
+        </div>
+      </a>
+      <a href="news-gravitational.html" class="news-card reveal" style="text-decoration:none;">
+        <div class="news-thumb">🌊</div>
+        <div class="news-body">
+          <div class="news-meta">
+            <span>LIGO / Virgo</span>
+            <span>· 引力波</span>
+          </div>
+          <div class="news-title">引力波探测器发现罕见三体系统并合事件</div>
+          <div class="news-excerpt">研究人员在引力波信号中发现了可能源自三天体系统的复杂波形，这将对现有引力波理论提出新挑战。</div>
+        </div>
+      </a>
+      <a href="news-exoplanet.html" class="news-card reveal" style="text-decoration:none;">
+        <div class="news-thumb">🪐</div>
+        <div class="news-body">
+          <div class="news-meta">
+            <span>系外行星</span>
+            <span>· 宜居带</span>
+          </div>
+          <div class="news-title">科学家在宜居带发现水蒸气信号的系外行星</div>
+          <div class="news-excerpt">位于22光年外的K2-18b大气层中检测到疑似二甲基硫的信号，这种分子在地球上仅由生物过程产生，引发广泛关注。</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ====================== 页脚 ====================== -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo" style="display:inline-flex; margin-bottom:12px;">
+          <span class="nav-logo-icon">🔭</span>
+          <span>星际探索</span>
+        </a>
+        <p>致力于以通俗易懂的方式传播天体物理学知识，让每个人都能感受宇宙的壮美与神秘。探索永无止境，好奇心是最好的望远镜。</p>
+      </div>
+      <div class="footer-col">
+        <h4>内容分类</h4>
+        <ul>
+          <li><a href="stars.html">恒星物理学</a></li>
+          <li><a href="blackhole.html">黑洞与奇点</a></li>
+          <li><a href="cosmology.html">宇宙学</a></li>
+          <li><a href="dark-matter.html">暗物质暗能量</a></li>
+          <li><a href="planets.html">行星科学</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>快速导航</h4>
+        <ul>
+          <li><a href="sun.html">太阳图鉴</a></li>
+          <li><a href="neutronstar.html">中子星图鉴</a></li>
+          <li><a href="gravitational-waves.html">引力波天文学</a></li>
+          <li><a href="#faq">宇宙问答</a></li>
+          <li><a href="news-jwst.html">前沿资讯</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 星际探索 · 天体物理科普网站 · 探索宇宙，永不止步</p>
+      <p>数据来源：NASA、ESA、中国科学院 等权威机构</p>
+    </div>
+  </footer>
+
+  <!-- ====================== JavaScript ====================== -->
+  <script>
+    // ======= 星空动画 =======
+    const canvas = document.getElementById('starCanvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    let shootingStars = [];
+    let W, H;
+
+    function resize() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+
+    function initStars() {
+      stars = [];
+      const count = Math.floor((W * H) / 2000);
+      for (let i = 0; i < count; i++) {
+        stars.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          r: Math.random() * 1.8 + 0.2,
+          alpha: Math.random() * 0.7 + 0.2,
+          speed: Math.random() * 0.3 + 0.05,
+          twinkle: Math.random() * Math.PI * 2
+        });
+      }
+    }
+
+    function drawStars(t) {
+      ctx.clearRect(0, 0, W, H);
+
+      // 星系背景
+      const grad = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, Math.max(W,H)/2);
+      grad.addColorStop(0, 'rgba(10,20,60,0.3)');
+      grad.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, W, H);
+
+      stars.forEach(s => {
+        s.twinkle += 0.015;
+        const alpha = s.alpha * (0.6 + 0.4 * Math.sin(s.twinkle));
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(180,210,255,${alpha})`;
+        ctx.fill();
+      });
+
+      // 流星
+      if (Math.random() < 0.008) {
+        shootingStars.push({
+          x: Math.random() * W,
+          y: Math.random() * H * 0.5,
+          len: Math.random() * 80 + 40,
+          speed: Math.random() * 6 + 4,
+          alpha: 1
+        });
+      }
+      shootingStars = shootingStars.filter(ss => ss.alpha > 0);
+      shootingStars.forEach(ss => {
+        ctx.beginPath();
+        const grad2 = ctx.createLinearGradient(ss.x, ss.y, ss.x + ss.len, ss.y + ss.len);
+        grad2.addColorStop(0, `rgba(255,255,255,${ss.alpha})`);
+        grad2.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.strokeStyle = grad2;
+        ctx.lineWidth = 1.5;
+        ctx.moveTo(ss.x, ss.y);
+        ctx.lineTo(ss.x + ss.len, ss.y + ss.len * 0.5);
+        ctx.stroke();
+        ss.x += ss.speed;
+        ss.y += ss.speed * 0.5;
+        ss.alpha -= 0.025;
+      });
+
+      requestAnimationFrame(drawStars);
+    }
+
+    resize();
+    initStars();
+    requestAnimationFrame(drawStars);
+    window.addEventListener('resize', () => { resize(); initStars(); });
+
+    // ======= 移动菜单 =======
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    menuBtn.addEventListener('click', () => {
+      menuBtn.classList.toggle('active');
+      mobileMenu.classList.toggle('open');
+    });
+
+    function closeMobileMenu() {
+      menuBtn.classList.remove('active');
+      mobileMenu.classList.remove('open');
+    }
+
+    // 点击外部关闭菜单
+    document.addEventListener('click', (e) => {
+      if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+        closeMobileMenu();
+      }
+    });
+
+    // ======= 阅读进度条 =======
+    const progressBar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+      const scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+      progressBar.style.width = Math.min(scrolled, 100) + '%';
+    });
+
+    // ======= FAQ 手风琴 =======
+    document.querySelectorAll('.faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const answer = btn.nextElementSibling;
+        const isOpen = btn.classList.contains('open');
+
+        // 关闭其他
+        document.querySelectorAll('.faq-q.open').forEach(b => {
+          b.classList.remove('open');
+          b.nextElementSibling.classList.remove('open');
+        });
+
+        if (!isOpen) {
+          btn.classList.add('open');
+          answer.classList.add('open');
+        }
+      });
+    });
+
+    // ======= 滚动动画 =======
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, 80 * (entry.target.dataset.delay || 0));
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach((el, i) => {
+      el.dataset.delay = i % 4;
+      observer.observe(el);
+    });
+
+    // ======= 数字滚动动画 =======
+    const numObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const nums = entry.target.querySelectorAll('[data-target]');
+          nums.forEach(num => {
+            const target = parseInt(num.dataset.target);
+            let current = 0;
+            const increment = target / 60;
+            const timer = setInterval(() => {
+              current += increment;
+              if (current >= target) {
+                current = target;
+                clearInterval(timer);
+              }
+              num.textContent = Math.floor(current).toLocaleString();
+            }, 25);
+          });
+          numObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.stats-bar').forEach(el => numObserver.observe(el));
+
+    // ======= 浮动粒子 =======
+    function createParticle() {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 3 + 1;
+      const colors = ['rgba(85,153,255,0.4)', 'rgba(170,119,255,0.4)', 'rgba(255,255,255,0.3)'];
+      p.style.cssText = `
+        width: ${size}px;
+        height: ${size}px;
+        left: ${Math.random() * 100}vw;
+        background: ${colors[Math.floor(Math.random() * colors.length)]};
+        animation-duration: ${Math.random() * 8 + 6}s;
+        animation-delay: ${Math.random() * 4}s;
+      `;
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 14000);
+    }
+
+    setInterval(createParticle, 1200);
+
+    // ======= 导航栏滚动样式 =======
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.style.background = 'rgba(4, 11, 26, 0.95)';
+      } else {
+        navbar.style.background = 'rgba(4, 11, 26, 0.85)';
+      }
+    });
+
+    // ======= 触摸优化 =======
+    document.querySelectorAll('.card, .obj-card, .news-card').forEach(el => {
+      el.addEventListener('touchstart', () => {}, { passive: true });
+    });
+
+    // ======= Service Worker 注册 =======
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(reg => {
+            console.log('Service Worker 已注册:', reg);
+            // 检查更新
+            setInterval(() => reg.update(), 60000);
+          })
+          .catch(err => console.log('Service Worker 注册失败:', err));
+      });
+    }
+
+    // ======= PWA 安装提示 =======
+    let installPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      installPrompt = e;
+      // 可在此显示自定义安装按钮
+      console.log('PWA 可以安装');
+    });
+
+    // 监听应用安装
+    window.addEventListener('appinstalled', () => {
+      console.log('应用已安装到主屏幕');
+      installPrompt = null;
+    });
+  </script>
+</body>
+</html>

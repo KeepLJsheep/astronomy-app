@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#040b1a">  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="星际探索">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231e3a8a;stop-opacity:1' /><stop offset='100%' style='stop-color:%237c3aed;stop-opacity:1' /></linearGradient></defs><rect width='192' height='192' fill='url(%23grad)'/><circle cx='96' cy='96' r='60' fill='none' stroke='%23fbbf24' stroke-width='3'/><circle cx='96' cy='96' r='8' fill='%23fbbf24'/></svg>">
+  <title>宇宙学与大爆炸 · 星际探索</title>
+  <link rel="stylesheet" href="common.css">
+</head>
+<body>
+<div class="bg-glow-1"></div><div class="bg-glow-2"></div>
+<canvas id="starCanvas"></canvas>
+<div class="progress-bar" id="progressBar"></div>
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo"><span class="nav-logo-icon">🔭</span><span>星际探索</span></a>
+  <a href="index.html#explore" class="nav-back">← <span>返回首页</span></a>
+</nav>
+
+<div class="detail-hero">
+  <div class="detail-hero-icon">🌌</div>
+  <span class="detail-badge">探索分类</span>
+  <h1>宇宙学与大爆炸</h1>
+  <p class="detail-hero-sub">宇宙如何从一个无限小的奇点演化成今天这个浩瀚无垠的时空？138亿年的宇宙史诗</p>
+</div>
+
+<div class="content-wrap">
+  <div class="data-grid reveal">
+    <div class="data-item"><div class="data-num">138亿</div><div class="data-label">宇宙年龄（年）</div></div>
+    <div class="data-item"><div class="data-num">930亿</div><div class="data-label">可观测宇宙直径（光年）</div></div>
+    <div class="data-item"><div class="data-num">2.7K</div><div class="data-label">宇宙微波背景温度</div></div>
+    <div class="data-item"><div class="data-num">70 km/s</div><div class="data-label">哈勃常数（每百万秒差距）</div></div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">大爆炸理论</div>
+  <h2 class="block-title reveal">宇宙的起源</h2>
+  <p class="lead-text reveal">大爆炸理论认为，宇宙起源于约138亿年前一个极高温度、极高密度的状态，并从那时起持续膨胀至今。这不是一场普通的"爆炸"，而是空间本身的创生与膨胀。</p>
+  <p class="body-text reveal">在大爆炸后极短时间内（普朗克时间：约10⁻⁴³秒），宇宙的温度高达10³²℃，所有已知物理定律均不适用。此后宇宙迅速冷却，经历了一系列相变，逐渐形成基本粒子、原子核、原子，最终演化出星系、恒星和行星。</p>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">宇宙年表</div>
+  <h2 class="block-title reveal">138亿年的演化历史</h2>
+  <div class="info-card reveal">
+    <div class="info-card-title">⚡ 10⁻⁴³秒：普朗克时代</div>
+    <div class="info-card-text">宇宙温度约10³²K，四种基本力可能统一为一种力，量子引力效应占主导，现有物理学无法描述这一时期。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">💥 10⁻³⁶~10⁻³²秒：暴胀时代</div>
+    <div class="info-card-text">宇宙经历了指数级膨胀（暴胀），体积在极短时间内增大至少10²⁶倍。暴胀解释了宇宙的平坦性、均匀性和视界问题。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">🔥 前3分钟：核合成时代</div>
+    <div class="info-card-text">温度降至约10亿K，质子和中子结合形成氦-4、氦-3、氘和少量锂核。大爆炸核合成产生了宇宙中约75%的氢和25%的氦。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">🌅 38万年后：复合时代</div>
+    <div class="info-card-text">温度降至约3000K，电子与原子核结合成中性原子，宇宙从不透明变为透明。光子得以自由传播，形成今天观测到的宇宙微波背景辐射。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">✨ 约2亿年后：第一批恒星诞生</div>
+    <div class="info-card-text">黑暗时代结束，第一批恒星和星系开始形成，宇宙再电离过程开始。这些最早的恒星质量巨大，寿命短暂，为宇宙播下了重元素的种子。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">🌟 约50亿年后：太阳系形成</div>
+    <div class="info-card-text">大约在88亿年前（即宇宙年龄约50亿年时），太阳系从一片富含金属的星云中诞生，地球在约46亿年前形成。</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">关键证据</div>
+  <h2 class="block-title reveal">大爆炸理论的支柱证据</h2>
+  <ul class="styled-list reveal">
+    <li><strong>宇宙膨胀（哈勃定律）：</strong>1929年哈勃发现星系红移，证实宇宙正在膨胀，逆推得到宇宙有一个开端。</li>
+    <li><strong>宇宙微波背景辐射（CMB）：</strong>1965年偶然发现的宇宙各方向几乎均匀的2.725K背景辐射，是大爆炸后余热的直接证据。</li>
+    <li><strong>轻元素丰度：</strong>宇宙中氢和氦的比例（约3:1）与大爆炸核合成理论预测完全吻合。</li>
+    <li><strong>星系演化：</strong>遥远（古老）星系与近处（年轻）星系的形态差异，符合宇宙从早期致密状态演化的预测。</li>
+  </ul>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">宇宙的命运</div>
+  <h2 class="block-title reveal">宇宙将走向何方？</h2>
+  <div class="highlight-box reveal">
+    <p>由于暗能量的存在，宇宙正在加速膨胀。主流预测是"大冻结"（Big Freeze）：宇宙无限膨胀，温度趋向绝对零度，所有恒星燃尽，黑洞蒸发，宇宙陷入最大熵状态的"热寂"。其他理论包括"大撕裂"（暗能量无限增大）和"大反弹"（量子引力效应导致宇宙再次坍缩）。</p>
+  </div>
+
+  <hr class="divider">
+  <div class="section-tag reveal">相关主题</div>
+  <h2 class="block-title reveal">继续探索</h2>
+  <div class="related-grid">
+    <a href="dark-matter.html" class="related-card reveal"><div class="related-icon">🔮</div><div class="related-title">暗物质与暗能量</div><div class="related-desc">宇宙95%的未知成分</div></a>
+    <a href="gravitational-waves.html" class="related-card reveal"><div class="related-icon">🌊</div><div class="related-title">引力波天文学</div><div class="related-desc">聆听宇宙结构的震动</div></a>
+    <a href="blackhole.html" class="related-card reveal"><div class="related-icon">🌀</div><div class="related-title">黑洞与奇点</div><div class="related-desc">宇宙最极端的天体</div></a>
+    <a href="stars.html" class="related-card reveal"><div class="related-icon">⭐</div><div class="related-title">恒星物理学</div><div class="related-desc">宇宙的核聚变反应堆</div></a>
+  </div>
+</div>
+
+<footer class="page-footer"><p>© 2026 星际探索 · 天体物理科普网站</p></footer>
+<script src="common.js"></script>
+</body>
+</html>

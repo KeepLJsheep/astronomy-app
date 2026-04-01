@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#040b1a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="星际探索">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231e3a8a;stop-opacity:1' /><stop offset='100%' style='stop-color:%237c3aed;stop-opacity:1' /></linearGradient></defs><rect width='192' height='192' fill='url(%23grad)'/><circle cx='96' cy='96' r='60' fill='none' stroke='%23fbbf24' stroke-width='3'/><circle cx='96' cy='96' r='8' fill='%23fbbf24'/></svg>">
+  <title>黑洞与奇点 · 星际探索</title>
+  <link rel="stylesheet" href="common.css">
+</head>
+<body>
+<div class="bg-glow-1"></div><div class="bg-glow-2"></div>
+<canvas id="starCanvas"></canvas>
+<div class="progress-bar" id="progressBar"></div>
+
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo"><span class="nav-logo-icon">🔭</span><span>星际探索</span></a>
+  <a href="index.html#explore" class="nav-back">← <span>返回首页</span></a>
+</nav>
+
+<div class="detail-hero">
+  <div class="detail-hero-icon">🌀</div>
+  <span class="detail-badge">探索分类</span>
+  <h1>黑洞与奇点</h1>
+  <p class="detail-hero-sub">宇宙中引力最强的天体，连光都无法逃脱的时空陷阱，物理学极限的试炼场</p>
+</div>
+
+<div class="content-wrap">
+  <div class="data-grid reveal">
+    <div class="data-item"><div class="data-num">M87*</div><div class="data-label">首张照片黑洞，65亿太阳质量</div></div>
+    <div class="data-item"><div class="data-num">3km</div><div class="data-label">太阳压缩成黑洞所需半径</div></div>
+    <div class="data-item"><div class="data-num">400万</div><div class="data-label">银河系中心黑洞/太阳质量</div></div>
+    <div class="data-item"><div class="data-num">2019</div><div class="data-label">人类首张黑洞照片发布年份</div></div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">基本概念</div>
+  <h2 class="block-title reveal">什么是黑洞？</h2>
+  <p class="lead-text reveal">黑洞是时空中的一个区域，在这里引力场极强，以至于任何东西——包括光——都无法从中逃逸。黑洞的边界称为"事件视界"，一旦越过这条单向门，便无法返回。</p>
+  <p class="body-text reveal">黑洞并非真正"黑色的洞"，而是时空曲率极大的区域。它不会主动"吸入"周围物质，只有接近到史瓦西半径以内的物质才会被捕获。黑洞无法直接观测，但可以通过其对周围物质的引力影响、引力透镜效应、X射线辐射以及引力波来探测。</p>
+
+  <div class="visual-block reveal" style="background: radial-gradient(circle at 50%, #330000 0%, #110022 25%, #000011 60%, #000000 100%);">
+    <span>🕳️</span>
+    <div class="visual-label">黑洞事件视界与吸积盘示意</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">史瓦西半径</div>
+  <h2 class="block-title reveal">事件视界的计算</h2>
+  <div class="eq-block reveal">r<sub>s</sub> = 2GM / c²</div>
+  <p class="body-text reveal">史瓦西半径（r<sub>s</sub>）是形成黑洞所需将物质压缩到的临界半径。G为万有引力常数，M为天体质量，c为光速。</p>
+  <ul class="styled-list reveal">
+    <li>太阳的史瓦西半径：约 <strong style="color:#88bbff">3千米</strong>（实际太阳半径约70万千米）</li>
+    <li>地球的史瓦西半径：约 <strong style="color:#88bbff">9毫米</strong>（实际地球半径约6400千米）</li>
+    <li>一个人（70kg）的史瓦西半径：约 <strong style="color:#88bbff">10⁻²⁵ 米</strong>，远小于质子</li>
+  </ul>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">黑洞的种类</div>
+  <h2 class="block-title reveal">四种主要类型</h2>
+  <div class="info-card reveal">
+    <div class="info-card-title">⚫ 恒星级黑洞（3–100 太阳质量）</div>
+    <div class="info-card-text">大质量恒星（&gt;25太阳质量）死亡时发生超新星爆发，核心坍缩成黑洞。银河系中估计有数百万至数十亿个此类黑洞。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">⚫ 中等质量黑洞（100–10万 太阳质量）</div>
+    <div class="info-card-text">存在于球状星团和矮星系中心，可能是超大质量黑洞的"种子"，是目前研究的热点领域，已有候选天体但尚无最终确认。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">⚫ 超大质量黑洞（百万至百亿 太阳质量）</div>
+    <div class="info-card-text">几乎每个大星系中心都有一个。M87*质量约65亿太阳质量，银河系中心黑洞（人马座A*）约400万太阳质量，其形成机制仍是未解之谜。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">⚫ 原初黑洞（假设存在）</div>
+    <div class="info-card-text">理论上宇宙早期密度涨落可形成的微小黑洞，质量可以极小，甚至可能是暗物质的候选者之一，目前尚未被观测证实。</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">霍金辐射</div>
+  <h2 class="block-title reveal">黑洞也会"蒸发"</h2>
+  <blockquote class="reveal">"黑洞不是永远黑暗的——它们会发光，只不过极其微弱。" —— 斯蒂芬·霍金</blockquote>
+  <p class="body-text reveal">1974年，斯蒂芬·霍金利用量子力学理论预言：黑洞的事件视界附近会自发产生粒子-反粒子对，其中一个粒子被黑洞捕获，另一个逃逸。从外部看，黑洞在辐射能量，质量逐渐减小，最终"蒸发"消失。</p>
+  <div class="highlight-box reveal">
+    <p>⚠️ <strong style="color:#88bbff">信息悖论：</strong>霍金辐射是热辐射，不携带任何关于落入黑洞物质的信息。这意味着掉入黑洞的信息似乎永久消失，这与量子力学"信息不灭"原则相矛盾。这一悖论至今未有公认的解决方案，是理论物理学的前沿难题。</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">首张黑洞照片</div>
+  <h2 class="block-title reveal">2019年：人类首次"看见"黑洞</h2>
+  <p class="body-text reveal">2019年4月10日，事件视界望远镜（EHT）项目公布了人类历史上第一张黑洞照片——M87星系中心超大质量黑洞的图像。这张照片由全球8台射电望远镜组成的"地球大小"的虚拟望远镜拍摄，历经两年数据处理才得以呈现。</p>
+  <p class="body-text reveal">2022年，EHT又公布了银河系中心黑洞"人马座A*"的图像，再次震撼世界。</p>
+
+  <hr class="divider">
+  <div class="section-tag reveal">相关主题</div>
+  <h2 class="block-title reveal">继续探索</h2>
+  <div class="related-grid">
+    <a href="stars.html" class="related-card reveal"><div class="related-icon">⭐</div><div class="related-title">恒星物理学</div><div class="related-desc">黑洞的前身——大质量恒星</div></a>
+    <a href="gravitational-waves.html" class="related-card reveal"><div class="related-icon">🌊</div><div class="related-title">引力波天文学</div><div class="related-desc">双黑洞合并产生的时空涟漪</div></a>
+    <a href="neutronstar.html" class="related-card reveal"><div class="related-icon">✨</div><div class="related-title">中子星</div><div class="related-desc">与黑洞同源的致密天体</div></a>
+    <a href="cosmology.html" class="related-card reveal"><div class="related-icon">🌌</div><div class="related-title">宇宙学</div><div class="related-desc">黑洞在宇宙演化中的角色</div></a>
+  </div>
+</div>
+
+<footer class="page-footer"><p>© 2026 星际探索 · 天体物理科普网站</p></footer>
+<script src="common.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#040b1a">  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="星际探索">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231e3a8a;stop-opacity:1' /><stop offset='100%' style='stop-color:%237c3aed;stop-opacity:1' /></linearGradient></defs><rect width='192' height='192' fill='url(%23grad)'/><circle cx='96' cy='96' r='60' fill='none' stroke='%23fbbf24' stroke-width='3'/><circle cx='96' cy='96' r='8' fill='%23fbbf24'/></svg>">
+  <title>太阳 · 天体图鉴 · 星际探索</title>
+  <link rel="stylesheet" href="common.css">
+</head>
+<body>
+<div class="bg-glow-1"></div><div class="bg-glow-2"></div>
+<canvas id="starCanvas"></canvas>
+<div class="progress-bar" id="progressBar"></div>
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo"><span class="nav-logo-icon">🔭</span><span>星际探索</span></a>
+  <a href="index.html#objects" class="nav-back">← <span>返回首页</span></a>
+</nav>
+
+<div class="detail-hero">
+  <div class="detail-hero-icon">☀️</div>
+  <span class="detail-badge">天体图鉴</span>
+  <h1>太阳</h1>
+  <p class="detail-hero-sub">G型主序星 · 距地约1.5亿千米 · 太阳系的核心与地球生命的能量来源</p>
+</div>
+
+<div class="content-wrap">
+  <div class="data-grid reveal">
+    <div class="data-item"><div class="data-num">1.4×10⁹m</div><div class="data-label">太阳直径</div></div>
+    <div class="data-item"><div class="data-num">1500万℃</div><div class="data-label">核心温度</div></div>
+    <div class="data-item"><div class="data-num">46亿年</div><div class="data-label">当前年龄</div></div>
+    <div class="data-item"><div class="data-num">50亿年</div><div class="data-label">剩余寿命估算</div></div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">基本介绍</div>
+  <h2 class="block-title reveal">离我们最近的恒星</h2>
+  <p class="lead-text reveal">太阳是太阳系的中心天体，一颗G型黄矮星，质量占太阳系总质量的99.86%。它距地球约1.496亿千米（1天文单位，AU），光从太阳到达地球约需8分20秒。</p>
+  <p class="body-text reveal">太阳已经燃烧了约46亿年，还剩约50亿年的主序寿命。之后它将膨胀成红巨星，外层气壳散逸形成行星状星云，遗留一个白矮星。</p>
+
+  <div class="visual-block reveal" style="background: radial-gradient(circle at 60% 40%, #ffdd00 0%, #ff8800 25%, #ff4400 50%, #220000 80%);">
+    <span>☀️</span>
+    <div class="visual-label">太阳表面等离子体对流与日珥</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">内部结构</div>
+  <h2 class="block-title reveal">从核心到日冕的层次</h2>
+  <div class="info-card reveal">
+    <div class="info-card-title">🔴 核心（0~25%半径）</div>
+    <div class="info-card-text">温度约1500万℃，压力约2500亿大气压。每秒有约6亿吨氢通过质子-质子链反应融合为氦，释放约3.8×10²⁶瓦的能量。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">🟠 辐射区（25~70%半径）</div>
+    <div class="info-card-text">能量以光子形式向外传输，但光子在这里不断被吸收和重新辐射，一个光子穿越辐射区需要约10万年！</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">🟡 对流区（70~100%半径）</div>
+    <div class="info-card-text">热等离子体对流传输能量，形成可见的太阳表面"米粒组织"（热等离子体上升、冷却后下沉的对流单元）。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">🔆 日冕（大气外层）</div>
+    <div class="info-card-text">温度高达100万~300万℃，远超太阳表面（约5500℃）。日冕加热机制至今是未解之谜，是太阳物理学的前沿研究课题。</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">太阳活动</div>
+  <h2 class="block-title reveal">太阳的"脾气"</h2>
+  <ul class="styled-list reveal">
+    <li><strong>太阳黑子：</strong>表面温度相对较低（约3800℃）的磁场集中区域，约11年为一个活动周期。</li>
+    <li><strong>太阳耀斑：</strong>大规模磁场重联引起的剧烈爆发，释放大量X射线和高能粒子，强耀斑可影响地球通信。</li>
+    <li><strong>日冕物质抛射（CME）：</strong>巨大的等离子体团被弹射到太空，到达地球后引起地磁暴和极光，强CME可损害卫星和电网。</li>
+    <li><strong>太阳风：</strong>持续从太阳表面向外流出的带电粒子流，形成日球层，保护太阳系免受星际辐射。</li>
+  </ul>
+
+  <div class="highlight-box reveal">
+    <p>🌈 <strong style="color:#88bbff">极光</strong>就是太阳风中的带电粒子沿地球磁力线进入大气层，与大气分子碰撞发光产生的壮丽景象。氧原子发出绿光和红光，氮分子发出蓝光和紫光。</p>
+  </div>
+
+  <hr class="divider">
+  <div class="section-tag reveal">相关天体</div>
+  <h2 class="block-title reveal">继续探索</h2>
+  <div class="related-grid">
+    <a href="earth.html" class="related-card reveal"><div class="related-icon">🌍</div><div class="related-title">地球</div><div class="related-desc">太阳滋养的唯一生命星球</div></a>
+    <a href="stars.html" class="related-card reveal"><div class="related-icon">⭐</div><div class="related-title">恒星物理学</div><div class="related-desc">太阳是恒星的典型代表</div></a>
+    <a href="planets.html" class="related-card reveal"><div class="related-icon">🪐</div><div class="related-title">行星科学</div><div class="related-desc">太阳系八大行星</div></a>
+    <a href="neutronstar.html" class="related-card reveal"><div class="related-icon">✨</div><div class="related-title">中子星</div><div class="related-desc">恒星死亡后的极端残骸</div></a>
+  </div>
+</div>
+
+<footer class="page-footer"><p>© 2026 星际探索 · 天体物理科普网站</p></footer>
+<script src="common.js"></script>
+</body>
+</html>

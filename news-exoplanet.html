@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#040b1a">  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="星际探索">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231e3a8a;stop-opacity:1' /><stop offset='100%' style='stop-color:%237c3aed;stop-opacity:1' /></linearGradient></defs><rect width='192' height='192' fill='url(%23grad)'/><circle cx='96' cy='96' r='60' fill='none' stroke='%23fbbf24' stroke-width='3'/><circle cx='96' cy='96' r='8' fill='%23fbbf24'/></svg>">
+  <title>系外行星宜居带新发现 · 资讯 · 星际探索</title>
+  <link rel="stylesheet" href="common.css">
+</head>
+<body>
+<div class="bg-glow-1"></div><div class="bg-glow-2"></div>
+<canvas id="starCanvas"></canvas>
+<div class="progress-bar" id="progressBar"></div>
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo"><span class="nav-logo-icon">🔭</span><span>星际探索</span></a>
+  <a href="index.html#news" class="nav-back">← <span>返回首页</span></a>
+</nav>
+
+<div class="detail-hero">
+  <div class="detail-hero-icon">🪐</div>
+  <span class="detail-badge">前沿资讯 · 系外行星</span>
+  <h1>科学家在宜居带发现<br>水蒸气信号的系外行星</h1>
+  <p class="detail-hero-sub">K2-18b大气中疑似检测到生命标志物，引发天文学界广泛关注</p>
+</div>
+
+<div class="content-wrap">
+  <div class="data-grid reveal">
+    <div class="data-item"><div class="data-num">K2-18b</div><div class="data-label">目标行星名称</div></div>
+    <div class="data-item"><div class="data-num">22光年</div><div class="data-label">距地球距离</div></div>
+    <div class="data-item"><div class="data-num">8.6倍</div><div class="data-label">行星质量（地球倍数）</div></div>
+    <div class="data-item"><div class="data-num">DMS</div><div class="data-label">疑似检测到的生命标志分子</div></div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">重大发现</div>
+  <h2 class="block-title reveal">或许是太阳系外生命迹象？</h2>
+  <p class="lead-text reveal">利用詹姆斯·韦伯太空望远镜，天文学家对位于22光年外的系外行星K2-18b的大气进行了精密分析，检测到甲烷、二氧化碳，以及疑似二甲基硫（DMS）的信号——而在地球上，DMS几乎仅由生物（主要是海洋浮游植物）的代谢过程产生。</p>
+
+  <div class="visual-block reveal" style="background: radial-gradient(ellipse at 60% 40%, #004422 0%, #002233 35%, #000022 70%, #000011 100%);">
+    <span>🪐</span>
+    <div class="visual-label">K2-18b 艺术想象图 — 可能覆盖着广阔海洋</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">K2-18b是什么行星</div>
+  <h2 class="block-title reveal">"次海王星"行星</h2>
+  <p class="body-text reveal">K2-18b是一颗质量约为地球8.6倍、半径约为地球2.6倍的"次海王星"（mini-Neptune）型行星，围绕一颗M型红矮星公转，轨道周期约33天，位于宜居带内。</p>
+  <div class="info-card reveal">
+    <div class="info-card-title">🌊 "海洋行星"假说</div>
+    <div class="info-card-text">根据其质量和半径，研究者推测K2-18b可能是一颗"海洋行星"（Hycean world）——拥有富含氢气的大气层，以及覆盖整个星球的液态水海洋。这类行星被认为是在更宽泛条件下可能支持生命存在的行星类型。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">⚗️ 大气成分分析</div>
+    <div class="info-card-text">JWST通过凌星光谱法分析K2-18b大气：当行星经过恒星时，大气对星光的吸收留下化学指纹。分析结果显示甲烷、CO₂的存在（在富氢大气中预期的组合），以及至少3σ置信度的DMS候选信号。</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">科学争议</div>
+  <h2 class="block-title reveal">谨慎乐观的科学态度</h2>
+  <p class="body-text reveal">尽管发现令人激动，但科学界普遍保持谨慎：</p>
+  <ul class="styled-list reveal">
+    <li>DMS信号目前仅约3σ置信度，尚不到科学界通常要求的5σ"发现"门槛</li>
+    <li>无法完全排除非生物化学过程（光化学反应、地质活动）产生DMS的可能</li>
+    <li>K2-18b的主星是活跃的M型矮星，可能产生大量高能辐射，影响宜居性</li>
+    <li>液态水海洋假说需要更多证据支持</li>
+  </ul>
+  <div class="highlight-box reveal">
+    <p>🔬 科学家计划使用更多JWST观测时间对K2-18b进行深度分析，并希望未来的下一代极大望远镜（ELT）能进一步精确测量其大气成分，为这一潜在重大发现提供决定性证据。</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">更大的意义</div>
+  <h2 class="block-title reveal">寻找宇宙中的生命</h2>
+  <p class="body-text reveal">无论K2-18b的生命迹象最终是否得到确认，这一发现的意义已经不可低估：它证明了JWST有能力在数十光年外探测行星大气中的复杂有机分子，为未来更系统地搜寻系外生命提供了技术路线。</p>
+  <blockquote class="reveal">"我们不是在寻找一个确定性的答案，而是在建立探测系外生命的方法论。K2-18b是这条路上的关键里程碑。"</blockquote>
+
+  <hr class="divider">
+  <div class="section-tag reveal">相关主题</div>
+  <h2 class="block-title reveal">继续探索</h2>
+  <div class="related-grid">
+    <a href="planets.html" class="related-card reveal"><div class="related-icon">🪐</div><div class="related-title">行星科学</div><div class="related-desc">宜居带与系外行星探索</div></a>
+    <a href="earth.html" class="related-card reveal"><div class="related-icon">🌍</div><div class="related-title">地球</div><div class="related-desc">目前唯一已知生命的行星</div></a>
+    <a href="news-jwst.html" class="related-card reveal"><div class="related-icon">🔭</div><div class="related-title">韦伯望远镜新发现</div><div class="related-desc">最遥远星系的探索</div></a>
+    <a href="stars.html" class="related-card reveal"><div class="related-icon">⭐</div><div class="related-title">恒星物理学</div><div class="related-desc">行星系统的恒星环境</div></a>
+  </div>
+</div>
+
+<footer class="page-footer"><p>© 2026 星际探索 · 天体物理科普网站</p></footer>
+<script src="common.js"></script>
+</body>
+</html>

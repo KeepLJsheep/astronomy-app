@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#040b1a">  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="星际探索">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231e3a8a;stop-opacity:1' /><stop offset='100%' style='stop-color:%237c3aed;stop-opacity:1' /></linearGradient></defs><rect width='192' height='192' fill='url(%23grad)'/><circle cx='96' cy='96' r='60' fill='none' stroke='%23fbbf24' stroke-width='3'/><circle cx='96' cy='96' r='8' fill='%23fbbf24'/></svg>">
+  <title>罕见三体引力波事件 · 资讯 · 星际探索</title>
+  <link rel="stylesheet" href="common.css">
+</head>
+<body>
+<div class="bg-glow-1"></div><div class="bg-glow-2"></div>
+<canvas id="starCanvas"></canvas>
+<div class="progress-bar" id="progressBar"></div>
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo"><span class="nav-logo-icon">🔭</span><span>星际探索</span></a>
+  <a href="index.html#news" class="nav-back">← <span>返回首页</span></a>
+</nav>
+
+<div class="detail-hero">
+  <div class="detail-hero-icon">🌊</div>
+  <span class="detail-badge">前沿资讯 · LIGO / Virgo</span>
+  <h1>引力波探测器发现<br>罕见三体系统并合事件</h1>
+  <p class="detail-hero-sub">研究人员在引力波信号中发现可能源自三天体系统的复杂波形，对现有理论提出新挑战</p>
+</div>
+
+<div class="content-wrap">
+  <div class="data-grid reveal">
+    <div class="data-item"><div class="data-num">LIGO</div><div class="data-label">探测器：激光干涉引力波天文台</div></div>
+    <div class="data-item"><div class="data-num">3体</div><div class="data-label">疑似涉及天体数量</div></div>
+    <div class="data-item"><div class="data-num">4km</div><div class="data-label">LIGO探测器臂长</div></div>
+    <div class="data-item"><div class="data-num">200+</div><div class="data-label">迄今探测引力波事件总数</div></div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">异常发现</div>
+  <h2 class="block-title reveal">不寻常的引力波信号</h2>
+  <p class="lead-text reveal">在常规数据分析中，科学家发现了一个与典型双天体合并信号明显不同的引力波事件。其波形呈现出额外的调制结构，暗示可能存在第三个大质量天体的引力干扰。</p>
+  <p class="body-text reveal">在通常的双黑洞或双中子星合并中，引力波信号呈现为频率和振幅都稳步增加的"啁啾"波形，最终在合并时达到峰值。但这次探测到的信号在某些阶段出现了偏差，与标准模板不完全匹配。</p>
+
+  <div class="visual-block reveal" style="background: radial-gradient(ellipse at 50% 50%, #002255 0%, #001133 35%, #000011 80%);">
+    <span>🌊</span>
+    <div class="visual-label">引力波时频图 — 三体系统的复杂调制</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">三体问题</div>
+  <h2 class="block-title reveal">引力的混沌系统</h2>
+  <p class="body-text reveal">三体问题（三个相互引力作用的天体的运动）在数学上是混沌的，没有通解。三体系统中，其中两个天体合并前，第三个天体的引力会以复杂方式影响合并过程，产生独特的引力波特征。</p>
+  <div class="info-card reveal">
+    <div class="info-card-title">🌀 层次三体系统</div>
+    <div class="info-card-text">最常见的稳定三体构型是"层次三体"：两个天体相互紧密绕转，第三个更远的天体绕这对天体运行。球状星团中密集的天体环境，是形成此类系统的理想场所。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">📡 科兹-里多夫-利多夫（KL）振荡</div>
+    <div class="info-card-text">在层次三体系统中，第三个天体的引力会导致内双星轨道的倾斜角和离心率发生周期性振荡（KL机制），可以大幅缩短内双星的合并时间，对引力波事件率有重要贡献。</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">科学意义</div>
+  <h2 class="block-title reveal">引力波天文学的新前沿</h2>
+  <p class="body-text reveal">如果三体系统并合事件得到确认，将是引力波天文学的重大突破。它不仅证实了天体物理学家长期预测的三体合并通道，还将为研究致密天体的动力学演化提供前所未有的观测数据。</p>
+  <div class="highlight-box reveal">
+    <p>🔬 目前，研究团队正在用多种数据分析方法对这一信号进行深入验证，并通过联合其他探测器（Virgo、KAGRA）的数据来排除仪器噪声的干扰。最终结论预计将发表在同行评审期刊上。</p>
+  </div>
+  <p class="body-text reveal">随着第四次观测运行（O4）继续积累数据，以及未来计划中的爱因斯坦望远镜和宇宙探索者等下一代探测器的投入使用，引力波天文学有望在未来十年迎来更多革命性发现。</p>
+
+  <hr class="divider">
+  <div class="section-tag reveal">相关主题</div>
+  <h2 class="block-title reveal">继续探索</h2>
+  <div class="related-grid">
+    <a href="gravitational-waves.html" class="related-card reveal"><div class="related-icon">🌊</div><div class="related-title">引力波天文学</div><div class="related-desc">开启新窗口的探测技术</div></a>
+    <a href="blackhole.html" class="related-card reveal"><div class="related-icon">🌀</div><div class="related-title">黑洞与奇点</div><div class="related-desc">引力波最主要的来源</div></a>
+    <a href="neutronstar.html" class="related-card reveal"><div class="related-icon">✨</div><div class="related-title">中子星</div><div class="related-desc">双中子星引力波事件</div></a>
+    <a href="news-jwst.html" class="related-card reveal"><div class="related-icon">🔭</div><div class="related-title">韦伯望远镜新发现</div><div class="related-desc">最遥远星系图像</div></a>
+  </div>
+</div>
+
+<footer class="page-footer"><p>© 2026 星际探索 · 天体物理科普网站</p></footer>
+<script src="common.js"></script>
+</body>
+</html>

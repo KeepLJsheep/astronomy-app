@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#040b1a">  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="星际探索">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231e3a8a;stop-opacity:1' /><stop offset='100%' style='stop-color:%237c3aed;stop-opacity:1' /></linearGradient></defs><rect width='192' height='192' fill='url(%23grad)'/><circle cx='96' cy='96' r='60' fill='none' stroke='%23fbbf24' stroke-width='3'/><circle cx='96' cy='96' r='8' fill='%23fbbf24'/></svg>">
+  <title>中子星 · 天体图鉴 · 星际探索</title>
+  <link rel="stylesheet" href="common.css">
+</head>
+<body>
+<div class="bg-glow-1"></div><div class="bg-glow-2"></div>
+<canvas id="starCanvas"></canvas>
+<div class="progress-bar" id="progressBar"></div>
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo"><span class="nav-logo-icon">🔭</span><span>星际探索</span></a>
+  <a href="index.html#objects" class="nav-back">← <span>返回首页</span></a>
+</nav>
+
+<div class="detail-hero">
+  <div class="detail-hero-icon">✨</div>
+  <span class="detail-badge">天体图鉴</span>
+  <h1>中子星</h1>
+  <p class="detail-hero-sub">脉冲星 · 每秒自转数百次 · 宇宙中密度最高的可见天体</p>
+</div>
+
+<div class="content-wrap">
+  <div class="data-grid reveal">
+    <div class="data-item"><div class="data-num">10~20km</div><div class="data-label">典型中子星半径</div></div>
+    <div class="data-item"><div class="data-num">1~2倍</div><div class="data-label">太阳质量范围</div></div>
+    <div class="data-item"><div class="data-num">10¹⁷ kg/m³</div><div class="data-label">中子星密度</div></div>
+    <div class="data-item"><div class="data-num">716次/秒</div><div class="data-label">最快脉冲星自转频率</div></div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">什么是中子星</div>
+  <h2 class="block-title reveal">一茶匙重达十亿吨的天体</h2>
+  <p class="lead-text reveal">中子星是大质量恒星超新星爆发后留下的极致密残骸，由几乎纯粹的中子组成（电子被压入质子形成中子）。它的密度惊人——一茶匙中子星物质约重10亿吨，相当于将整座喜马拉雅山压缩成一粒沙子的大小。</p>
+
+  <div class="visual-block reveal" style="background: radial-gradient(circle at 50%, #aaaaff 0%, #4444cc 25%, #111166 55%, #000011 100%);">
+    <span>✨</span>
+    <div class="visual-label">中子星磁层与辐射束示意</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">脉冲星</div>
+  <h2 class="block-title reveal">宇宙中的灯塔</h2>
+  <p class="body-text reveal">当中子星快速自转且磁轴与自转轴不对齐时，沿磁轴方向发射的辐射束像灯塔一样周期性扫过地球，形成规律的脉冲信号，这类中子星称为<strong style="color:#88bbff">脉冲星</strong>。</p>
+  <div class="info-card reveal">
+    <div class="info-card-title">📡 精准的宇宙时钟</div>
+    <div class="info-card-text">脉冲星的自转极其稳定，某些毫秒脉冲星（自转周期&lt;30毫秒）的计时精度甚至超过地球上最好的原子钟，被称为"宇宙时钟"。科学家利用脉冲星阵列探测引力波背景辐射。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">🏆 1974年诺贝尔物理学奖</div>
+    <div class="info-card-text">赫尔斯和泰勒发现了第一个双脉冲星系统（PSR B1913+16），并精确测量到由引力波辐射导致的轨道衰减，间接证实了引力波的存在，获1993年诺贝尔物理学奖。</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">磁星</div>
+  <h2 class="block-title reveal">磁场极强的中子星变体</h2>
+  <p class="body-text reveal">磁星是磁场极强（约10¹⁵高斯，地球磁场的约1000亿倍）的中子星，能不定期爆发出强烈的X射线和伽马射线。磁星磁场如此之强，以至于在数百千米外就能撕裂分子，改变原子的电子轨道。</p>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">双中子星合并</div>
+  <h2 class="block-title reveal">金的起源</h2>
+  <p class="body-text reveal">当两颗中子星在双星系统中相互靠近并最终合并时，会产生千新星爆发，同时释放引力波和短伽马射线暴。2017年的GW170817事件是人类首次同时观测到引力波和光学信号，证实了金、铂等重元素在双中子星合并中大量产生——你的金饰品，就这样诞生于宇宙中某次壮烈的合并事件。</p>
+  <div class="highlight-box reveal">
+    <p>💛 根据估算，GW170817事件中产生的金约为<strong style="color:#ffdd44">地球质量的几十倍</strong>。宇宙中几乎所有比铁重的元素，都来自超新星或中子星合并这样的极端事件。</p>
+  </div>
+
+  <hr class="divider">
+  <div class="section-tag reveal">相关天体</div>
+  <h2 class="block-title reveal">继续探索</h2>
+  <div class="related-grid">
+    <a href="blackhole.html" class="related-card reveal"><div class="related-icon">🌀</div><div class="related-title">黑洞</div><div class="related-desc">比中子星更极端的致密天体</div></a>
+    <a href="supernova.html" class="related-card reveal"><div class="related-icon">💥</div><div class="related-title">超新星遗迹</div><div class="related-desc">中子星的诞生场所</div></a>
+    <a href="gravitational-waves.html" class="related-card reveal"><div class="related-icon">🌊</div><div class="related-title">引力波天文学</div><div class="related-desc">双中子星合并产生引力波</div></a>
+    <a href="stars.html" class="related-card reveal"><div class="related-icon">⭐</div><div class="related-title">恒星物理学</div><div class="related-desc">中子星的前身恒星</div></a>
+  </div>
+</div>
+
+<footer class="page-footer"><p>© 2026 星际探索 · 天体物理科普网站</p></footer>
+<script src="common.js"></script>
+</body>
+</html>

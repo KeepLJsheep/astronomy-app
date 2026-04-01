@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#040b1a">  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="星际探索">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231e3a8a;stop-opacity:1' /><stop offset='100%' style='stop-color:%237c3aed;stop-opacity:1' /></linearGradient></defs><rect width='192' height='192' fill='url(%23grad)'/><circle cx='96' cy='96' r='60' fill='none' stroke='%23fbbf24' stroke-width='3'/><circle cx='96' cy='96' r='8' fill='%23fbbf24'/></svg>">
+  <title>地球 · 天体图鉴 · 星际探索</title>
+  <link rel="stylesheet" href="common.css">
+</head>
+<body>
+<div class="bg-glow-1"></div><div class="bg-glow-2"></div>
+<canvas id="starCanvas"></canvas>
+<div class="progress-bar" id="progressBar"></div>
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo"><span class="nav-logo-icon">🔭</span><span>星际探索</span></a>
+  <a href="index.html#objects" class="nav-back">← <span>返回首页</span></a>
+</nav>
+
+<div class="detail-hero">
+  <div class="detail-hero-icon">🌍</div>
+  <span class="detail-badge">天体图鉴</span>
+  <h1>地球</h1>
+  <p class="detail-hero-sub">类地行星 · 目前已知唯一存在生命的星球 · 我们共同的家园</p>
+</div>
+
+<div class="content-wrap">
+  <div class="data-grid reveal">
+    <div class="data-item"><div class="data-num">6371km</div><div class="data-label">平均半径</div></div>
+    <div class="data-item"><div class="data-num">46亿年</div><div class="data-label">地球年龄</div></div>
+    <div class="data-item"><div class="data-num">71%</div><div class="data-label">表面被水覆盖比例</div></div>
+    <div class="data-item"><div class="data-num">870万+</div><div class="data-label">已知物种数量</div></div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">为什么地球与众不同</div>
+  <h2 class="block-title reveal">宇宙中的"奇迹行星"</h2>
+  <p class="lead-text reveal">在太阳系乃至已发现的数千颗系外行星中，地球是迄今唯一被证实存在生命的星球。它的特殊性源于多种因素的罕见组合——液态水、大气层、磁场、适宜温度和月球的潮汐稳定作用。</p>
+  <p class="body-text reveal">从宇宙的视角看，地球不过是太阳周围的一颗普通岩石行星，渺小得几乎可以忽略不计。但就是这颗直径不足1.3万千米的蓝色星球，孕育了已知宇宙中唯一的文明，并且向外太空发射了数十个探测器，试图了解它自己所在的宇宙。</p>
+
+  <div class="visual-block reveal" style="background: radial-gradient(circle at 40% 45%, #1155cc 0%, #004422 30%, #002244 60%, #000011 100%);">
+    <span>🌍</span>
+    <div class="visual-label">从太空看地球 — 蓝色大理石</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">地球的保护层</div>
+  <h2 class="block-title reveal">生命的守护屏障</h2>
+  <div class="info-card reveal">
+    <div class="info-card-title">🛡️ 地球磁场</div>
+    <div class="info-card-text">地球液态外核中的铁镍对流产生地磁场，形成磁层，偏转来自太阳的高能带电粒子（太阳风）和宇宙射线，保护地表生命免受辐射伤害。没有磁场，大气层将被太阳风逐渐剥蚀（火星就是前车之鉴）。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">🌬️ 大气层</div>
+    <div class="info-card-text">地球大气由78%氮气、21%氧气和少量其他气体组成。臭氧层（距地15~35千米）吸收有害的太阳紫外线；温室气体（CO₂、H₂O等）维持地表平均温度约15℃，比无大气时高约33℃。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">🌊 液态水</div>
+    <div class="info-card-text">地球是太阳系中目前唯一在表面存在大量液态水的行星。海洋覆盖71%的地球表面，调节气候、溶解营养物质、为生命提供栖息地，并参与塑造了地球独特的地质和生物演化历史。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">🌙 月球的稳定作用</div>
+    <div class="info-card-text">月球的引力稳定了地球自转轴的倾斜角（约23.5°），防止其大幅摆动。这种稳定性有助于维持地球气候的长期规律性，被认为对复杂生命的演化至关重要。</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">地球的未来</div>
+  <h2 class="block-title reveal">50亿年后的命运</h2>
+  <p class="body-text reveal">随着太阳不断发亮（每10亿年亮度约增加10%），地球将在约10亿年后变得过热，海洋蒸发，生命难以为继。约50亿年后，太阳膨胀为红巨星，可能将地球轨道完全吞没。</p>
+  <blockquote class="reveal">"地球是人类的摇篮，但人类不能永远停留在摇篮里。" —— 康斯坦丁·齐奥尔科夫斯基</blockquote>
+  <p class="body-text reveal">人类目前正通过太空探索，努力成为多行星物种，以确保文明的长期延续。火星殖民、小行星采矿和星际飞行是这一宏伟计划的组成部分。</p>
+
+  <hr class="divider">
+  <div class="section-tag reveal">相关天体</div>
+  <h2 class="block-title reveal">继续探索</h2>
+  <div class="related-grid">
+    <a href="sun.html" class="related-card reveal"><div class="related-icon">☀️</div><div class="related-title">太阳</div><div class="related-desc">地球的能量来源</div></a>
+    <a href="planets.html" class="related-card reveal"><div class="related-icon">🪐</div><div class="related-title">行星科学</div><div class="related-desc">太阳系与系外行星</div></a>
+    <a href="blackhole.html" class="related-card reveal"><div class="related-icon">🌀</div><div class="related-title">黑洞</div><div class="related-desc">宇宙的极端对立面</div></a>
+    <a href="cosmology.html" class="related-card reveal"><div class="related-icon">🌌</div><div class="related-title">宇宙学</div><div class="related-desc">地球在宇宙中的坐标</div></a>
+  </div>
+</div>
+
+<footer class="page-footer"><p>© 2026 星际探索 · 天体物理科普网站</p></footer>
+<script src="common.js"></script>
+</body>
+</html>

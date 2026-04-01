@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#040b1a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="星际探索">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231e3a8a;stop-opacity:1' /><stop offset='100%' style='stop-color:%237c3aed;stop-opacity:1' /></linearGradient></defs><rect width='192' height='192' fill='url(%23grad)'/><circle cx='96' cy='96' r='60' fill='none' stroke='%23fbbf24' stroke-width='3'/><circle cx='96' cy='96' r='8' fill='%23fbbf24'/></svg>">
+  <title>恒星物理学 · 星际探索</title>
+  <link rel="stylesheet" href="common.css">
+</head>
+<body>
+<div class="bg-glow-1"></div><div class="bg-glow-2"></div>
+<canvas id="starCanvas"></canvas>
+<div class="progress-bar" id="progressBar"></div>
+
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo"><span class="nav-logo-icon">🔭</span><span>星际探索</span></a>
+  <a href="index.html#explore" class="nav-back">← <span>返回首页</span></a>
+</nav>
+
+<div class="detail-hero">
+  <div class="detail-hero-icon">⭐</div>
+  <span class="detail-badge">探索分类</span>
+  <h1>恒星物理学</h1>
+  <p class="detail-hero-sub">从氢核聚变到超新星爆发，恒星是宇宙中最重要的元素锻造厂，也是生命存在的能量来源</p>
+</div>
+
+<div class="content-wrap">
+  <div class="data-grid reveal">
+    <div class="data-item"><div class="data-num">~2000亿</div><div class="data-label">银河系恒星数量</div></div>
+    <div class="data-item"><div class="data-num">100亿年</div><div class="data-label">太阳寿命估计</div></div>
+    <div class="data-item"><div class="data-num">1500万℃</div><div class="data-label">太阳核心温度</div></div>
+    <div class="data-item"><div class="data-num">O B A F G K M</div><div class="data-label">恒星光谱分类</div></div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">什么是恒星</div>
+  <h2 class="block-title reveal">宇宙中的核聚变反应堆</h2>
+  <p class="lead-text reveal">恒星是由引力束缚的等离子体球体，通过核聚变反应释放能量，发出光和热。太阳是距离地球最近的恒星，也是我们了解恒星物理学的最佳"实验室"。</p>
+  <p class="body-text reveal">在恒星内部，极端的温度（数百万至数亿摄氏度）和压力使氢原子核聚变成氦原子核，并释放出巨大的能量。这一过程遵循爱因斯坦的质能方程 E=mc²，每秒有数百万吨质量转化为纯能量向外辐射。</p>
+  <div class="eq-block reveal">E = mc²</div>
+  <p class="body-text reveal">恒星内部的核聚变产生向外的辐射压，与向内的引力达到平衡，维持恒星的稳定结构，这种状态称为"流体静力学平衡"。</p>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">恒星的生命周期</div>
+  <h2 class="block-title reveal">从星云到死亡残骸</h2>
+  <div class="visual-block reveal" style="background: radial-gradient(ellipse at 30% 50%, #ff6600 0%, #aa2200 30%, #220033 60%, #000011 100%);">
+    <span>🌟</span>
+    <div class="visual-label">赫罗图 — 恒星演化路径示意</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">💫 第一阶段：星云坍缩与原恒星</div>
+    <div class="info-card-text">恒星诞生于星际气体和尘埃组成的星云。当星云在引力作用下坍缩，中心温度升高，当核心温度达到约1000万℃时，氢核聚变点燃，原恒星正式成为主序星。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">☀️ 第二阶段：主序阶段（青壮年）</div>
+    <div class="info-card-text">这是恒星生命中最长的阶段，约占总寿命的90%。恒星在此阶段稳定地燃烧核心氢元素。类太阳恒星的主序阶段约持续100亿年，质量越大的恒星燃烧越快，主序阶段越短。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">🔴 第三阶段：红巨星/红超巨星</div>
+    <div class="info-card-text">氢耗尽后，核心收缩而外层膨胀，恒星变成红巨星。类太阳恒星会膨胀至现在的100-200倍半径，届时将吞噬水星、金星，甚至地球。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">💀 第四阶段：恒星的死亡</div>
+    <div class="info-card-text">小质量恒星（&lt;8太阳质量）：外层气体形成行星状星云，核心遗留白矮星。大质量恒星（&gt;8太阳质量）：发生超新星爆发，遗留中子星或黑洞。</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">恒星分类</div>
+  <h2 class="block-title reveal">恒星的光谱类型</h2>
+  <p class="body-text reveal">天文学家根据恒星表面温度和光谱特征，将恒星分为 O、B、A、F、G、K、M 七个光谱型（从高温到低温）。助记口诀：<strong style="color:#88bbff">"Oh Be A Fine Girl/Guy, Kiss Me"</strong></p>
+  <ul class="styled-list reveal">
+    <li><strong>O型</strong>（&gt;30000K）：蓝色，最热最亮，极罕见，如猎户座θ星</li>
+    <li><strong>B型</strong>（10000–30000K）：蓝白色，如参宿七（猎户座β星）</li>
+    <li><strong>A型</strong>（7500–10000K）：白色，如天狼星、织女星</li>
+    <li><strong>F型</strong>（6000–7500K）：黄白色，如南河三</li>
+    <li><strong>G型</strong>（5200–6000K）：黄色，如太阳（G2V型）</li>
+    <li><strong>K型</strong>（3700–5200K）：橙色，如大角星</li>
+    <li><strong>M型</strong>（&lt;3700K）：红色，最常见，如比邻星</li>
+  </ul>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">核合成</div>
+  <h2 class="block-title reveal">恒星是元素的锻造厂</h2>
+  <blockquote class="reveal">"我们都是星尘。" —— 卡尔·萨根</blockquote>
+  <p class="body-text reveal">宇宙大爆炸只产生了氢、氦和极少量锂。碳、氧、铁等构成生命的重元素，都是在恒星内部通过核聚变逐步合成的。超新星爆发时，还能合成比铁更重的金、铀等元素，并将它们播撒到星际介质中，最终形成新的行星和生命。</p>
+  <div class="highlight-box reveal">
+    <p>🌟 人体内的铁元素来自某颗古老恒星的死亡；你手上的金戒指，是中子星合并时诞生的。我们的身体，本质上是恒星燃烧过后留下的灰烬重新组合而成的。</p>
+  </div>
+
+  <hr class="divider">
+  <div class="section-tag reveal">相关主题</div>
+  <h2 class="block-title reveal">继续探索</h2>
+  <div class="related-grid">
+    <a href="blackhole.html" class="related-card reveal"><div class="related-icon">🌀</div><div class="related-title">黑洞与奇点</div><div class="related-desc">大质量恒星死亡后的极端产物</div></a>
+    <a href="supernova.html" class="related-card reveal"><div class="related-icon">💥</div><div class="related-title">超新星遗迹</div><div class="related-desc">恒星最壮烈的终章</div></a>
+    <a href="neutronstar.html" class="related-card reveal"><div class="related-icon">✨</div><div class="related-title">中子星</div><div class="related-desc">超新星爆发后的致密残骸</div></a>
+    <a href="cosmology.html" class="related-card reveal"><div class="related-icon">🌌</div><div class="related-title">宇宙学</div><div class="related-desc">宇宙大爆炸与演化历史</div></a>
+  </div>
+</div>
+
+<footer class="page-footer"><p>© 2026 星际探索 · 天体物理科普网站</p></footer>
+<script src="common.js"></script>
+</body>
+</html>

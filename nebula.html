@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#040b1a">  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="星际探索">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231e3a8a;stop-opacity:1' /><stop offset='100%' style='stop-color:%237c3aed;stop-opacity:1' /></linearGradient></defs><rect width='192' height='192' fill='url(%23grad)'/><circle cx='96' cy='96' r='60' fill='none' stroke='%23fbbf24' stroke-width='3'/><circle cx='96' cy='96' r='8' fill='%23fbbf24'/></svg>">
+  <title>星云 · 天体图鉴 · 星际探索</title>
+  <link rel="stylesheet" href="common.css">
+</head>
+<body>
+<div class="bg-glow-1"></div><div class="bg-glow-2"></div>
+<canvas id="starCanvas"></canvas>
+<div class="progress-bar" id="progressBar"></div>
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo"><span class="nav-logo-icon">🔭</span><span>星际探索</span></a>
+  <a href="index.html#objects" class="nav-back">← <span>返回首页</span></a>
+</nav>
+
+<div class="detail-hero">
+  <div class="detail-hero-icon">🌠</div>
+  <span class="detail-badge">天体图鉴</span>
+  <h1>星云</h1>
+  <p class="detail-hero-sub">恒星诞生与死亡的温床，宇宙中最绚烂的彩色画卷</p>
+</div>
+
+<div class="content-wrap">
+  <div class="data-grid reveal">
+    <div class="data-item"><div class="data-num">1344光年</div><div class="data-label">猎户座大星云距地距离</div></div>
+    <div class="data-item"><div class="data-num">40光年</div><div class="data-label">猎户座大星云直径</div></div>
+    <div class="data-item"><div class="data-num">700颗+</div><div class="data-label">猎户座星云中的原恒星</div></div>
+    <div class="data-item"><div class="data-num">多种</div><div class="data-label">星云类型（发射/反射/暗）</div></div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">星云是什么</div>
+  <h2 class="block-title reveal">气体与尘埃的宇宙云</h2>
+  <p class="lead-text reveal">星云（Nebula，拉丁语"云"）是由气体（主要是氢和氦）和尘埃组成的星际云团。它们是宇宙物质循环的关键节点——既是新恒星诞生的摇篮，也是恒星死亡后抛出物质的归宿。</p>
+  <p class="body-text reveal">在哈勃和韦伯太空望远镜的镜头下，星云呈现出令人叹为观止的彩色形态。这些颜色来自云中不同元素被附近恒星紫外线激发后发出的特征谱线——红色通常来自氢，绿色/蓝色来自氧，蓝色也可能来自硫。</p>
+
+  <div class="visual-block reveal" style="background: radial-gradient(ellipse at 25% 60%, #ff4400 0%, #aa0066 25%, #220044 55%, #000011 100%);">
+    <span>🌠</span>
+    <div class="visual-label">猎户座大星云 — 恒星诞生的温床</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">星云的分类</div>
+  <h2 class="block-title reveal">五种主要类型</h2>
+  <div class="info-card reveal">
+    <div class="info-card-title">💡 发射星云（H II区）</div>
+    <div class="info-card-text">由年轻热恒星发出的紫外线电离周围气体，使其发光。猎户座大星云（M42）是最著名的发射星云，肉眼可见，是最活跃的恒星形成区之一，内部正孕育着数百颗新恒星。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">🔵 反射星云</div>
+    <div class="info-card-text">本身不发光，而是反射附近恒星的光，呈现蓝色（因为蓝光比红光散射更强）。昴星团周围的星云就是典型的反射星云。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">🌑 暗星云</div>
+    <div class="info-card-text">密度极高的尘埃云，遮挡背后的星光，在明亮背景上呈现黑暗剪影。著名的"马头星云"就是一个暗星云，形状酷似马头。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">🌺 行星状星云</div>
+    <div class="info-card-text">中低质量恒星（如太阳）死亡时，外层气壳被抛出形成的彩色气体环。名字源于早期天文学家认为它像行星，实际上与行星无关。著名的"猫眼星云""戒指星云"都属此类。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">💥 超新星遗迹</div>
+    <div class="info-card-text">大质量恒星超新星爆发后，抛出的气体壳层形成的星云。著名的蟹状星云是1054年超新星爆发的遗迹，中心有一颗快速旋转的脉冲星。</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">恒星摇篮</div>
+  <h2 class="block-title reveal">在黑暗中孕育新生</h2>
+  <p class="body-text reveal">恒星诞生于分子云（一种冷暗且密集的星云）中。当分子云的某个区域因引力扰动或附近超新星冲击波而开始坍缩，中心物质越来越密集，温度越来越高，最终点燃核聚变，一颗新的恒星便诞生了。</p>
+  <blockquote class="reveal">詹姆斯·韦伯太空望远镜2022年发布的"宇宙悬崖"图像，展示了船底座星云中数百颗正在形成的恒星，分辨率之高令天文学家震撼。</blockquote>
+
+  <hr class="divider">
+  <div class="section-tag reveal">相关天体</div>
+  <h2 class="block-title reveal">继续探索</h2>
+  <div class="related-grid">
+    <a href="stars.html" class="related-card reveal"><div class="related-icon">⭐</div><div class="related-title">恒星物理学</div><div class="related-desc">星云孕育恒星的过程</div></a>
+    <a href="supernova.html" class="related-card reveal"><div class="related-icon">💥</div><div class="related-title">超新星遗迹</div><div class="related-desc">恒星死亡后的星云形态</div></a>
+    <a href="neutronstar.html" class="related-card reveal"><div class="related-icon">✨</div><div class="related-title">中子星</div><div class="related-desc">星云中心的高密残骸</div></a>
+    <a href="cosmology.html" class="related-card reveal"><div class="related-icon">🌌</div><div class="related-title">宇宙学</div><div class="related-desc">星云在宇宙演化中的角色</div></a>
+  </div>
+</div>
+
+<footer class="page-footer"><p>© 2026 星际探索 · 天体物理科普网站</p></footer>
+<script src="common.js"></script>
+</body>
+</html>

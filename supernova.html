@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#040b1a">  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="星际探索">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231e3a8a;stop-opacity:1' /><stop offset='100%' style='stop-color:%237c3aed;stop-opacity:1' /></linearGradient></defs><rect width='192' height='192' fill='url(%23grad)'/><circle cx='96' cy='96' r='60' fill='none' stroke='%23fbbf24' stroke-width='3'/><circle cx='96' cy='96' r='8' fill='%23fbbf24'/></svg>">
+  <title>超新星遗迹 · 天体图鉴 · 星际探索</title>
+  <link rel="stylesheet" href="common.css">
+</head>
+<body>
+<div class="bg-glow-1"></div><div class="bg-glow-2"></div>
+<canvas id="starCanvas"></canvas>
+<div class="progress-bar" id="progressBar"></div>
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo"><span class="nav-logo-icon">🔭</span><span>星际探索</span></a>
+  <a href="index.html#objects" class="nav-back">← <span>返回首页</span></a>
+</nav>
+
+<div class="detail-hero">
+  <div class="detail-hero-icon">💥</div>
+  <span class="detail-badge">天体图鉴</span>
+  <h1>超新星遗迹</h1>
+  <p class="detail-hero-sub">蟹状星云 · 1054年超新星爆发遗迹 · 宇宙中最壮烈的终章</p>
+</div>
+
+<div class="content-wrap">
+  <div class="data-grid reveal">
+    <div class="data-item"><div class="data-num">6500光年</div><div class="data-label">蟹状星云距地距离</div></div>
+    <div class="data-item"><div class="data-num">11光年</div><div class="data-label">蟹状星云直径</div></div>
+    <div class="data-item"><div class="data-num">1054年</div><div class="data-label">中国宋朝记录的超新星爆发</div></div>
+    <div class="data-item"><div class="data-num">30次/秒</div><div class="data-label">蟹状星云中脉冲星自转频率</div></div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">超新星爆发</div>
+  <h2 class="block-title reveal">宇宙最壮烈的爆炸</h2>
+  <p class="lead-text reveal">超新星是大质量恒星（&gt;8倍太阳质量）生命终结时发生的灾难性爆炸，在极短时间内释放的能量超过太阳一生的总辐射量，峰值光度可以超过整个星系！</p>
+  <p class="body-text reveal">当大质量恒星核心的铁核质量超过"钱德拉塞卡极限"（约1.4倍太阳质量），铁核在万分之一秒内坍缩，形成中子星或黑洞，释放的能量将外层气体向外猛烈抛射，速度高达光速的10%~30%。</p>
+
+  <div class="visual-block reveal" style="background: radial-gradient(ellipse at 50% 50%, #ff8800 0%, #ff2200 20%, #880033 45%, #110022 75%, #000011 100%);">
+    <span>💥</span>
+    <div class="visual-label">超新星爆发模拟 — 核心坍缩型</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">超新星的类型</div>
+  <h2 class="block-title reveal">两种主要爆发机制</h2>
+  <div class="info-card reveal">
+    <div class="info-card-title">⚫ Ib/Ic/II型：核心坍缩超新星</div>
+    <div class="info-card-text">大质量恒星（&gt;8太阳质量）的铁核坍缩，外层被爆炸抛射，留下中子星或黑洞。这类超新星将恒星内部合成的重元素播撒到星际空间，是宇宙元素演化的关键环节。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">⚪ Ia型：热核超新星</div>
+    <div class="info-card-text">双星系统中，白矮星从伴星吸积物质超过钱德拉塞卡极限，发生失控热核爆炸，完全摧毁自身，不留任何残骸。Ia型超新星亮度几乎恒定，是宇宙距离测量的"标准烛光"，正是用它发现了宇宙加速膨胀。</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">蟹状星云</div>
+  <h2 class="block-title reveal">历史记录的遗迹</h2>
+  <p class="body-text reveal">1054年7月4日，中国宋朝天文学家记录了一颗"客星"（即超新星），白天也清晰可见，持续了约23天。这颗超新星的遗迹就是今天著名的蟹状星云（M1），距地约6500光年，直径约11光年，仍在以约1500km/s的速度向外膨胀。</p>
+  <div class="highlight-box reveal">
+    <p>🔬 蟹状星云中心有一颗<strong style="color:#88bbff">蟹状脉冲星</strong>，每秒自转约30次，不断向外辐射强烈的X射线和伽马射线，为整个星云提供能量。它是目前研究最深入的天体之一。</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">超新星的意义</div>
+  <h2 class="block-title reveal">生命元素的宇宙快递</h2>
+  <p class="body-text reveal">超新星是宇宙中最重要的"元素快递员"。从恒星核心合成的碳、氧、氮、硅、铁等元素，通过超新星爆发被抛射到星际介质，最终汇聚成新的星云，形成下一代恒星和行星系统。</p>
+  <p class="body-text reveal">你身体里的每一个铁原子、每一个钙原子，都曾经历过恒星的核聚变，然后通过超新星爆发被抛射出来，在宇宙中漫游数十亿年，最终成为你的一部分。</p>
+  <blockquote class="reveal">"我们都是恒星爆炸后的残骸。" —— 劳伦斯·克劳斯</blockquote>
+
+  <hr class="divider">
+  <div class="section-tag reveal">相关天体</div>
+  <h2 class="block-title reveal">继续探索</h2>
+  <div class="related-grid">
+    <a href="neutronstar.html" class="related-card reveal"><div class="related-icon">✨</div><div class="related-title">中子星</div><div class="related-desc">超新星爆发留下的致密核心</div></a>
+    <a href="blackhole.html" class="related-card reveal"><div class="related-icon">🌀</div><div class="related-title">黑洞</div><div class="related-desc">最大质量超新星的结局</div></a>
+    <a href="stars.html" class="related-card reveal"><div class="related-icon">⭐</div><div class="related-title">恒星物理学</div><div class="related-desc">恒星演化到超新星的历程</div></a>
+    <a href="nebula.html" class="related-card reveal"><div class="related-icon">🌠</div><div class="related-title">星云</div><div class="related-desc">超新星遗迹形成的星云</div></a>
+  </div>
+</div>
+
+<footer class="page-footer"><p>© 2026 星际探索 · 天体物理科普网站</p></footer>
+<script src="common.js"></script>
+</body>
+</html>

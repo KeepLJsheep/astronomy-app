@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#040b1a">  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="星际探索">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231e3a8a;stop-opacity:1' /><stop offset='100%' style='stop-color:%237c3aed;stop-opacity:1' /></linearGradient></defs><rect width='192' height='192' fill='url(%23grad)'/><circle cx='96' cy='96' r='60' fill='none' stroke='%23fbbf24' stroke-width='3'/><circle cx='96' cy='96' r='8' fill='%23fbbf24'/></svg>">
+  <title>暗物质与暗能量 · 星际探索</title>
+  <link rel="stylesheet" href="common.css">
+</head>
+<body>
+<div class="bg-glow-1"></div><div class="bg-glow-2"></div>
+<canvas id="starCanvas"></canvas>
+<div class="progress-bar" id="progressBar"></div>
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo"><span class="nav-logo-icon">🔭</span><span>星际探索</span></a>
+  <a href="index.html#explore" class="nav-back">← <span>返回首页</span></a>
+</nav>
+
+<div class="detail-hero">
+  <div class="detail-hero-icon">🔮</div>
+  <span class="detail-badge">探索分类</span>
+  <h1>暗物质与暗能量</h1>
+  <p class="detail-hero-sub">宇宙中95%的成分是我们看不见、摸不着的神秘存在，它们左右着宇宙的命运</p>
+</div>
+
+<div class="content-wrap">
+  <div class="data-grid reveal">
+    <div class="data-item"><div class="data-num">5%</div><div class="data-label">普通物质占比</div></div>
+    <div class="data-item"><div class="data-num">27%</div><div class="data-label">暗物质占比</div></div>
+    <div class="data-item"><div class="data-num">68%</div><div class="data-label">暗能量占比</div></div>
+    <div class="data-item"><div class="data-num">1933</div><div class="data-label">暗物质首次被提出（年）</div></div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">宇宙的成分</div>
+  <h2 class="block-title reveal">我们只认识宇宙的5%</h2>
+  <p class="lead-text reveal">所有能被观测到的物质——恒星、行星、气体、尘埃、你我——加在一起，只占宇宙总能量密度的约5%。另外95%由我们几乎一无所知的暗物质（27%）和暗能量（68%）构成。</p>
+
+  <div class="visual-block reveal" style="background: conic-gradient(from 180deg, #1a6bff 0% 5%, #6633cc 5% 32%, #110033 32% 100%); display:flex; align-items:center; justify-content:center; font-size:2.5rem; gap: 20px;">
+    <div style="text-align:center; background:rgba(0,0,0,0.5); padding:20px 30px; border-radius:14px;">
+      <div style="font-size:0.8rem; color:#88bbff; margin-bottom:8px;">宇宙能量组成</div>
+      <div style="font-size:0.85rem; line-height:2;">
+        <span style="color:#5599ff">■</span> 普通物质 5%<br>
+        <span style="color:#aa44ff">■</span> 暗物质 27%<br>
+        <span style="color:#220044">■</span> 暗能量 68%
+      </div>
+    </div>
+    <div class="visual-label">宇宙能量密度组成比例</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">暗物质</div>
+  <h2 class="block-title reveal">引力告诉我们它存在</h2>
+  <p class="body-text reveal">暗物质不发射、不吸收、不反射任何形式的电磁辐射，因此无法被直接"看到"。但它通过引力对周围可见物质产生影响，这些效应成为暗物质存在的有力证据。</p>
+  <div class="info-card reveal">
+    <div class="info-card-title">🌀 证据一：星系旋转曲线</div>
+    <div class="info-card-text">按照牛顿引力理论，星系边缘的恒星应该比内部恒星转动得更慢（类似太阳系行星）。但观测发现，星系边缘恒星的速度几乎与内部相同甚至更快。唯一解释是有大量不可见物质（暗物质晕）包裹着整个星系，提供额外引力。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">🔭 证据二：引力透镜</div>
+    <div class="info-card-text">当光线经过大质量天体时，会被弯曲——这是引力透镜效应。观测到星系团周围的透镜效应远超其可见物质所能产生的强度，说明有大量不可见质量的存在。著名的"子弹星系团"提供了迄今最直接的暗物质分布证据。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">🌐 证据三：宇宙大尺度结构</div>
+    <div class="info-card-text">计算机模拟表明，如果没有暗物质，宇宙中的星系和星系团不可能形成今天观测到的网状大尺度结构。暗物质提供了宇宙结构形成所需的"骨架"。</div>
+  </div>
+
+  <div class="section-tag reveal" style="margin-top:40px;">暗物质候选者</div>
+  <h2 class="block-title reveal">它可能是什么？</h2>
+  <ul class="styled-list reveal">
+    <li><strong>WIMP（弱相互作用大质量粒子）：</strong>最主流的候选者，质量是质子的10-1000倍，只参与弱相互作用，多个大型实验正在寻找但至今未检测到。</li>
+    <li><strong>轴子：</strong>质量极轻的假想粒子，最初为解决强CP问题而提出，也是暗物质的有力候选者。</li>
+    <li><strong>惰性中微子：</strong>比普通中微子更重的假想粒子，不参与标准模型相互作用。</li>
+    <li><strong>原初黑洞：</strong>宇宙早期形成的微小黑洞，引力波观测对其质量范围有一定限制。</li>
+  </ul>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">暗能量</div>
+  <h2 class="block-title reveal">加速宇宙膨胀的神秘力量</h2>
+  <p class="body-text reveal">1998年，天文学家在研究Ia型超新星时意外发现：宇宙不仅在膨胀，而且在加速膨胀！这一发现获得了2011年诺贝尔物理学奖。为解释这种加速膨胀，物理学家引入了"暗能量"的概念。</p>
+  <div class="highlight-box reveal">
+    <p>💡 最简单的暗能量模型是爱因斯坦的"宇宙学常数" Λ（Lambda），它代表真空的能量密度。然而量子场论对真空能的理论预测值比观测值大约 <strong style="color:#ff9944">10¹²⁰ 倍</strong>——这被称为"宇宙学常数问题"，是理论物理学中最大的未解谜题之一。</p>
+  </div>
+  <p class="body-text reveal">其他暗能量模型包括动态暗能量（"精质"）和修改引力理论。随着未来巡天望远镜（如欧几里得、CSST）提供更精确的数据，我们有望更好地限制暗能量的性质。</p>
+
+  <hr class="divider">
+  <div class="section-tag reveal">相关主题</div>
+  <h2 class="block-title reveal">继续探索</h2>
+  <div class="related-grid">
+    <a href="cosmology.html" class="related-card reveal"><div class="related-icon">🌌</div><div class="related-title">宇宙学与大爆炸</div><div class="related-desc">宇宙的起源与演化</div></a>
+    <a href="gravitational-waves.html" class="related-card reveal"><div class="related-icon">🌊</div><div class="related-title">引力波天文学</div><div class="related-desc">探测宇宙的新窗口</div></a>
+    <a href="blackhole.html" class="related-card reveal"><div class="related-icon">🌀</div><div class="related-title">黑洞与奇点</div><div class="related-desc">极端引力天体</div></a>
+    <a href="stars.html" class="related-card reveal"><div class="related-icon">⭐</div><div class="related-title">恒星物理学</div><div class="related-desc">普通物质的恒星世界</div></a>
+  </div>
+</div>
+
+<footer class="page-footer"><p>© 2026 星际探索 · 天体物理科普网站</p></footer>
+<script src="common.js"></script>
+</body>
+</html>

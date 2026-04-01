@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#040b1a">  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="星际探索">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231e3a8a;stop-opacity:1' /><stop offset='100%' style='stop-color:%237c3aed;stop-opacity:1' /></linearGradient></defs><rect width='192' height='192' fill='url(%23grad)'/><circle cx='96' cy='96' r='60' fill='none' stroke='%23fbbf24' stroke-width='3'/><circle cx='96' cy='96' r='8' fill='%23fbbf24'/></svg>">
+  <title>行星科学 · 星际探索</title>
+  <link rel="stylesheet" href="common.css">
+</head>
+<body>
+<div class="bg-glow-1"></div><div class="bg-glow-2"></div>
+<canvas id="starCanvas"></canvas>
+<div class="progress-bar" id="progressBar"></div>
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo"><span class="nav-logo-icon">🔭</span><span>星际探索</span></a>
+  <a href="index.html#explore" class="nav-back">← <span>返回首页</span></a>
+</nav>
+
+<div class="detail-hero">
+  <div class="detail-hero-icon">🪐</div>
+  <span class="detail-badge">探索分类</span>
+  <h1>行星科学</h1>
+  <p class="detail-hero-sub">从太阳系八大行星到数千颗系外行星，探索行星的形成演化与宜居性</p>
+</div>
+
+<div class="content-wrap">
+  <div class="data-grid reveal">
+    <div class="data-item"><div class="data-num">8颗</div><div class="data-label">太阳系行星数量</div></div>
+    <div class="data-item"><div class="data-num">5700+</div><div class="data-label">已确认系外行星</div></div>
+    <div class="data-item"><div class="data-num">22光年</div><div class="data-label">K2-18b距地距离</div></div>
+    <div class="data-item"><div class="data-num">1995</div><div class="data-label">首颗系外行星确认年份</div></div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">太阳系行星</div>
+  <h2 class="block-title reveal">我们的太阳系家园</h2>
+  <p class="lead-text reveal">太阳系由太阳、八大行星、矮行星、小行星、彗星和行星际尘埃等组成。按距太阳距离由近及远：水星、金星、地球、火星（类地行星）；木星、土星（气态巨行星）；天王星、海王星（冰巨行星）。</p>
+  <div class="info-card reveal">
+    <div class="info-card-title">🌍 类地行星（岩石行星）</div>
+    <div class="info-card-text">水星、金星、地球、火星。体积较小，密度高，拥有固体岩石表面。地球是目前已知唯一存在生命的行星，火星是最有可能找到过去或现在生命迹象的候选地。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">🪐 气态巨行星</div>
+    <div class="info-card-text">木星和土星，主要由氢和氦组成，没有固体表面。木星是太阳系最大的行星，质量约为地球的318倍。土星的环系统壮观美丽，由冰晶和岩石颗粒组成。</div>
+  </div>
+  <div class="info-card reveal">
+    <div class="info-card-title">🔵 冰巨行星</div>
+    <div class="info-card-text">天王星和海王星，主要由水、氨、甲烷等"冰"组成，外层有氢氦大气。天王星的自转轴倾斜约97.8°，几乎"躺着"绕太阳公转。海王星有太阳系最强的风速（超过2100km/h）。</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">系外行星</div>
+  <h2 class="block-title reveal">太阳系外的行星世界</h2>
+  <p class="body-text reveal">系外行星是围绕其他恒星运行的行星。1995年，天文学家首次通过视向速度法确认了一颗太阳型恒星周围的系外行星——飞马座51b。此后，探测系外行星成为天文学最活跃的领域之一。</p>
+  <ul class="styled-list reveal">
+    <li><strong>凌日法：</strong>当行星从恒星盘面前经过时，恒星亮度略微下降。开普勒太空望远镜用此方法发现了2600余颗系外行星。</li>
+    <li><strong>视向速度法：</strong>行星引力使恒星产生周期性摆动，导致恒星光谱出现多普勒位移。</li>
+    <li><strong>直接成像法：</strong>用日冕仪遮挡恒星光，直接拍摄行星图像，适用于大质量行星。</li>
+    <li><strong>微引力透镜法：</strong>利用前景天体的引力透镜效应，可以探测到质量较小的行星。</li>
+  </ul>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">宜居带与生命</div>
+  <h2 class="block-title reveal">在哪里寻找生命？</h2>
+  <p class="body-text reveal">宜居带（又称"戈尔迪洛克斯区"）是指行星轨道使其表面温度允许液态水存在的距离范围。液态水被认为是生命存在的必要条件之一。</p>
+  <div class="highlight-box reveal">
+    <p>🔭 <strong style="color:#88bbff">K2-18b</strong>：位于22光年外，轨道在宜居带内，大气中疑似检测到甲烷、二氧化碳，甚至可能有二甲基硫（DMS）——后者在地球上仅由生物过程产生。詹姆斯·韦伯太空望远镜正对其大气进行深入分析，这是寻找系外生命迹象的重大线索。</p>
+  </div>
+  <p class="body-text reveal">太阳系内，木星的卫星木卫二（Europa）和土星的卫星土卫二（Enceladus）的冰层下存在液态海洋，被认为是太阳系内最有可能存在生命的地方。土卫二更是在间歇泉中喷出含有有机分子和氢气的水汽。</p>
+
+  <hr class="divider">
+
+  <div class="section-tag reveal">行星形成</div>
+  <h2 class="block-title reveal">星盘中诞生的世界</h2>
+  <p class="body-text reveal">行星在恒星形成后剩余的原行星盘（气体和尘埃组成的圆盘）中诞生。尘埃颗粒碰撞粘连，逐渐形成微行星，再通过引力聚集形成行星胚，最终演化为行星。这一过程称为"星子吸积"。</p>
+  <p class="body-text reveal">詹姆斯·韦伯太空望远镜（JWST）已拍摄到多个处于不同形成阶段的原行星盘，为行星形成理论提供了前所未有的观测数据。</p>
+
+  <hr class="divider">
+  <div class="section-tag reveal">相关主题</div>
+  <h2 class="block-title reveal">继续探索</h2>
+  <div class="related-grid">
+    <a href="sun.html" class="related-card reveal"><div class="related-icon">☀️</div><div class="related-title">太阳</div><div class="related-desc">行星系统的中心恒星</div></a>
+    <a href="earth.html" class="related-card reveal"><div class="related-icon">🌍</div><div class="related-title">地球</div><div class="related-desc">唯一已知的生命星球</div></a>
+    <a href="stars.html" class="related-card reveal"><div class="related-icon">⭐</div><div class="related-title">恒星物理学</div><div class="related-desc">行星的母恒星</div></a>
+    <a href="cosmology.html" class="related-card reveal"><div class="related-icon">🌌</div><div class="related-title">宇宙学</div><div class="related-desc">行星在宇宙中的位置</div></a>
+  </div>
+</div>
+
+<footer class="page-footer"><p>© 2026 星际探索 · 天体物理科普网站</p></footer>
+<script src="common.js"></script>
+</body>
+</html>
